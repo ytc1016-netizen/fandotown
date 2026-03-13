@@ -69,71 +69,48 @@ cursor:pointer;
 
 <script>
 
-let houses = JSON.parse(localStorage.getItem("houses")) || [];
+const houses = JSON.parse(localStorage.getItem("houses")) || []
 
-if(houses.length === 0){
+const container = document.getElementById("house-list")
 
-houses = [
+houses.forEach(house => {
 
-{
-title:"高雄三民區電梯大樓",
-price:"988",
-size:"35",
-layout:"3房2廳2衛",
-city:"高雄市",
-img:"https://images.unsplash.com/photo-1560185127-6ed189bf02f4"
-},
+const card = document.createElement("div")
 
-{
-title:"台中西屯區景觀宅",
-price:"1280",
-size:"42",
-layout:"4房2廳2衛",
-city:"台中市",
-img:"https://images.unsplash.com/photo-1568605114967-8130f3a36994"
-}
+card.className = "house-card"
 
-];
+card.innerHTML = `
 
-localStorage.setItem("houses",JSON.stringify(houses));
-
-}
-
-const container = document.getElementById("houseContainer");
-
-houses.forEach((house,index)=>{
-
-container.innerHTML += `
-
-<div class="house-card">
-
-<img class="house-img" src="${house.img}">
-
-<div class="house-info">
+<img src="${house.img}" class="list-img">
 
 <h2>${house.title}</h2>
 
-<div class="price">${house.price}萬</div>
+<p style="color:red;font-size:20px;">
+${house.price}萬
+</p>
 
-<div>坪數：${house.size}坪</div>
+<p>坪數：${house.size}坪</p>
 
-<div>格局：${house.layout}</div>
+<p>格局：${house.layout}</p>
 
-<div>城市：${house.city}</div>
+<p>城市：${house.city}</p>
 
-<br>
+<button onclick="viewHouse(${house.id})">
+查看詳細
+</button>
+container.appendChild(card)
 
-<a href="house-detail.html?id=${index}">
-<button>查看詳細</button>
-</a>
+})
 
-</div>
+function viewHouse(id){
 
-</div>
+const house = houses.find(h => h.id === id)
 
-`;
+localStorage.setItem("currentHouse", JSON.stringify(house))
 
-});
+window.location.href="house-detail.html"
+
+}
 
 </script>
 
