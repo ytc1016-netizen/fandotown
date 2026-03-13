@@ -2,11 +2,33 @@
 <html lang="zh-Hant">
 
 <head>
-
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>刊登房屋</title>
+
+<style>
+
+body{
+font-family:Arial;
+width:600px;
+margin:auto;
+margin-top:40px;
+}
+
+input{
+width:100%;
+padding:10px;
+margin:5px 0;
+}
+
+button{
+padding:10px 20px;
+background:#1976b6;
+color:white;
+border:none;
+cursor:pointer;
+}
+
+</style>
 
 </head>
 
@@ -14,25 +36,27 @@
 
 <h1>刊登房屋</h1>
 
-標題<br>
-<input id="title"><br><br>
+標題
+<input id="title">
 
-價格(萬)<br>
-<input id="price"><br><br>
+價格(萬)
+<input id="price">
 
-坪數<br>
-<input id="size"><br><br>
+坪數
+<input id="size">
 
-格局<br>
-<input id="layout"><br><br>
+格局
+<input id="layout">
 
-城市<br>
-<input id="city"><br><br>
+城市
+<input id="city">
 
-圖片URL<br>
-<input id="img"><br><br>
+圖片URL
+<input id="img">
 
-<button onclick="addHouse()">刊登</button>
+<br><br>
+
+<button onclick="addHouse()">刊登房屋</button>
 
 <script>
 
@@ -40,7 +64,7 @@ function addHouse(){
 
 let houses = JSON.parse(localStorage.getItem("houses")) || [];
 
-const house = {
+let house = {
 
 title:document.getElementById("title").value,
 price:document.getElementById("price").value,
