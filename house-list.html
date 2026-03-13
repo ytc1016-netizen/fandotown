@@ -84,8 +84,16 @@ cursor:pointer;
 
 </div>
 <script>
+function searchHouse(){
+
+const city = document.getElementById("searchCity").value
+const price = document.getElementById("searchPrice").value
 
 let houses = JSON.parse(localStorage.getItem("houses")) || []
+function searchHouse(){
+
+const city = document.getElementById("searchCity").value
+const price = document.getElementById("searchPrice").value
 
 const container = document.getElementById("house-list")
 
