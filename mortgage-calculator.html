@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="UTF-8">
+<title>房貸試算</title>
+
+</head>
+
+<body>
+
+<h1>房貸試算</h1>
+
+房價<br>
+<input id="price"><br><br>
+
+年數<br>
+<input id="year"><br><br>
+
+利率<br>
+<input id="rate"><br><br>
+
+<button onclick="calc()">計算</button>
+
+<h2 id="result"></h2>
+
+<script>
+
+function calc(){
+
+var p=document.getElementById("price").value
+
+var r=document.getElementById("rate").value/100/12
+
+var y=document.getElementById("year").value*12
+
+var m=p*r*Math.pow(1+r,y)/(Math.pow(1+r,y)-1)
+
+document.getElementById("result").innerHTML="每月："+Math.round(m)
+
+}
+
+</script>
+
+</body>
+</html>
