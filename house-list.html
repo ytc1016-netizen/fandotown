@@ -59,7 +59,25 @@ cursor:pointer;
 <body>
 
 <div class="container">
+<div class="search-bar">
 
+<select id="searchCity">
+<option value="">全部城市</option>
+<option>台北市</option>
+<option>新北市</option>
+<option>桃園市</option>
+<option>新竹市</option>
+<option>新竹縣</option>
+<option>台中市</option>
+<option>台南市</option>
+<option>高雄市</option>
+</select>
+
+<input id="searchPrice" placeholder="價格低於(萬)">
+
+<button onclick="searchHouse()">搜尋</button>
+
+</div>
 <h1>房屋列表</h1>
 
 <div id="houseContainer"></div>
