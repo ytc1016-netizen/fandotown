@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="UTF-8">
+<title>管理員登入</title>
+
+</head>
+
+<body>
+
+<h2>管理員登入</h2>
+
+帳號<br>
+<input id="user"><br><br>
+
+密碼<br>
+<input id="pass" type="password"><br><br>
+
+<button onclick="login()">登入</button>
+
+<script>
+
+function login(){
+
+var u=document.getElementById("user").value
+
+var p=document.getElementById("pass").value
+
+if(u=="admin" && p=="9168"){
+
+window.location="admin-panel.html"
+
+}else{
+
+alert("帳號錯誤")
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
