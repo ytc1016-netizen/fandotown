@@ -59,31 +59,41 @@ cursor:pointer;
 <button onclick="addHouse()">刊登房屋</button>
 
 <script>
+<script>
 
-function addHouse(){
+function postHouse(){
 
-let houses = JSON.parse(localStorage.getItem("houses")) || [];
+const title = document.getElementById("title").value
+const price = document.getElementById("price").value
+const size = document.getElementById("size").value
+const layout = document.getElementById("layout").value
+const city = document.getElementById("city").value
+const img = document.getElementById("img").value
 
-let house = {
+let houses = JSON.parse(localStorage.getItem("houses")) || []
 
-title:document.getElementById("title").value,
-price:document.getElementById("price").value,
-size:document.getElementById("size").value,
-layout:document.getElementById("layout").value,
-city:document.getElementById("city").value,
-img:document.getElementById("img").value
+const house = {
+id: Date.now(),
+title,
+price,
+size,
+layout,
+city,
+img
+}
 
-};
+houses.push(house)
 
-houses.push(house);
+localStorage.setItem("houses", JSON.stringify(houses))
 
-localStorage.setItem("houses",JSON.stringify(houses));
+alert("刊登成功")
 
-alert("刊登成功");
-
-location.href="house-list.html";
+window.location.href="house-list.html"
 
 }
+
+</script>
+
 
 </script>
 
