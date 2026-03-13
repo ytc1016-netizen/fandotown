@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="UTF-8">
+<title>AI仲介 阿榮</title>
+
+</head>
+
+<body>
+
+<h1>AI仲介 阿榮</h1>
+
+輸入預算<br>
+
+<input id="budget">
+
+<button onclick="recommend()">推薦房屋</button>
+
+<h2 id="result"></h2>
+
+<script>
+
+function recommend(){
+
+var b=document.getElementById("budget").value
+
+if(b>1000){
+
+document.getElementById("result").innerHTML="推薦：高雄三民區三房"
+
+}else{
+
+document.getElementById("result").innerHTML="推薦：台中西屯兩房"
+
+}
+
+}
+
+</script>
+
+</body>
+
+</html>
