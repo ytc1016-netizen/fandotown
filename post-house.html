@@ -1,8 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-Hant">
+
 <head>
 
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>刊登房屋</title>
 
 </head>
@@ -11,19 +14,54 @@
 
 <h1>刊登房屋</h1>
 
-房屋標題<br>
-<input><br><br>
+標題<br>
+<input id="title"><br><br>
 
-價格<br>
-<input><br><br>
+價格(萬)<br>
+<input id="price"><br><br>
 
 坪數<br>
-<input><br><br>
+<input id="size"><br><br>
 
-地址<br>
-<input><br><br>
+格局<br>
+<input id="layout"><br><br>
 
-<button>送出刊登</button>
+城市<br>
+<input id="city"><br><br>
+
+圖片URL<br>
+<input id="img"><br><br>
+
+<button onclick="addHouse()">刊登</button>
+
+<script>
+
+function addHouse(){
+
+let houses = JSON.parse(localStorage.getItem("houses")) || [];
+
+const house = {
+
+title:document.getElementById("title").value,
+price:document.getElementById("price").value,
+size:document.getElementById("size").value,
+layout:document.getElementById("layout").value,
+city:document.getElementById("city").value,
+img:document.getElementById("img").value
+
+};
+
+houses.push(house);
+
+localStorage.setItem("houses",JSON.stringify(houses));
+
+alert("刊登成功");
+
+location.href="house-list.html";
+
+}
+
+</script>
 
 </body>
 </html>
