@@ -99,6 +99,38 @@ const container = document.getElementById("house-list")
 
 function renderHouse(list){
 
+const container = document.getElementById("house-list")
+
+container.innerHTML=""
+
+list.forEach(house=>{
+
+container.innerHTML += `
+
+<div class="house-card">
+
+<img src="${house.img}" class="list-img">
+
+<div class="house-info">
+
+<h2>${house.title}</h2>
+
+<p class="price">${house.price}萬</p>
+
+<p>坪數：${house.size}坪</p>
+
+<p>格局：${house.layout}</p>
+
+<p>城市：${house.city}</p>
+
+<button onclick="viewHouse(${house.id})">查看詳細</button>
+
+</div>
+
+})
+
+}
+
 container.innerHTML=""
 
 list.forEach(house=>{
