@@ -83,29 +83,31 @@ cursor:pointer;
 <div id="houseContainer"></div>
 
 </div>
-
-
 <script>
 
-const houses = JSON.parse(localStorage.getItem("houses")) || []
+let houses = JSON.parse(localStorage.getItem("houses")) || []
 
 const container = document.getElementById("house-list")
 
-houses.forEach(house => {
+function renderHouse(list){
+
+container.innerHTML=""
+
+list.forEach(house=>{
 
 const card = document.createElement("div")
 
-card.className = "house-card"
+card.className="house-card"
 
 card.innerHTML = `
 
 <img src="${house.img}" class="list-img">
 
+<div class="house-info">
+
 <h2>${house.title}</h2>
 
-<p style="color:red;font-size:20px;">
-${house.price}萬
-</p>
+<p class="price">${house.price}萬</p>
 
 <p>坪數：${house.size}坪</p>
 
@@ -116,17 +118,43 @@ ${house.price}萬
 <button onclick="viewHouse(${house.id})">
 查看詳細
 </button>
+
+</div>
+
 container.appendChild(card)
 
 })
 
+}
+
+renderHouse(houses)
+
 function viewHouse(id){
 
-const house = houses.find(h => h.id === id)
+const house = houses.find(h=>h.id===id)
 
-localStorage.setItem("currentHouse", JSON.stringify(house))
+localStorage.setItem("currentHouse",JSON.stringify(house))
 
 window.location.href="house-detail.html"
+
+}
+
+function searchHouse(){
+
+const city = document.getElementById("searchCity").value
+const price = document.getElementById("searchPrice").value
+
+let result = houses
+
+if(city){
+result = result.filter(h=>h.city===city)
+}
+
+if(price){
+result = result.filter(h=>h.price <= price)
+}
+
+renderHouse(result)
 
 }
 
