@@ -1,25 +1,97 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
+
 <head>
 
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>房屋列表</title>
 
 <link rel="stylesheet" href="style.css">
+
+<style>
+
+.search-box{
+background:#1976b6;
+padding:40px;
+color:white;
+text-align:center;
+}
+
+.search-box input,
+.search-box select{
+padding:10px;
+margin:10px;
+width:200px;
+border-radius:5px;
+border:none;
+}
+
+.house-list{
+width:90%;
+max-width:1000px;
+margin:auto;
+margin-top:40px;
+}
+
+.house-card{
+background:white;
+border-radius:10px;
+box-shadow:0 2px 10px rgba(0,0,0,0.1);
+display:flex;
+margin-bottom:25px;
+overflow:hidden;
+}
+
+.house-img{
+width:300px;
+height:200px;
+object-fit:cover;
+}
+
+.house-info{
+padding:20px;
+}
+
+.house-title{
+font-size:22px;
+font-weight:bold;
+margin-bottom:10px;
+}
+
+.house-price{
+color:#e53935;
+font-size:20px;
+margin-bottom:8px;
+}
+
+.house-detail{
+color:#555;
+margin-bottom:6px;
+}
+
+.btn{
+background:#1976b6;
+color:white;
+border:none;
+padding:10px 18px;
+border-radius:5px;
+cursor:pointer;
+}
+
+</style>
 
 </head>
 
 <body>
 
-<header>
-<div class="container">
+<div class="search-box">
 
-<h3>搜尋房屋</h3>
+<h2>搜尋房屋</h2>
 
-地區
-
-<select id="area">
-<option value="">全部地區</option>
+<select id="city">
+<option value="">全部城市</option>
 <option>台北市</option>
 <option>新北市</option>
 <option>桃園市</option>
@@ -29,58 +101,90 @@
 <option>台南市</option>
 <option>高雄市</option>
 </select>
-價格低於
-<input id="price">
 
-<button onclick="search()">搜尋</button>
+<input id="price" placeholder="價格低於 (萬)">
+
+<button class="btn">搜尋</button>
 
 </div>
-<h1>房屋列表</h1>
 
-</header>
+<div class="house-list">
 
-<div class="container">
+<h2>房屋列表</h2>
 
-<div class="house">
 
-<h3>高雄三民區電梯大樓</h3>
+<div class="house-card">
 
-<p>價格：988萬</p>
+<img class="house-img"
+src="https://images.unsplash.com/photo-1560185127-6ed189bf02f4">
 
-<p>坪數：35坪</p>
+<div class="house-info">
+
+<div class="house-title">
+高雄三民區電梯大樓
+</div>
+
+<div class="house-price">
+988萬
+</div>
+
+<div class="house-detail">
+坪數：35坪
+</div>
+
+<div class="house-detail">
+格局：3房2廳2衛
+</div>
+
+<div class="house-detail">
+城市：高雄市
+</div>
 
 <a href="house-detail.html">
-<button>查看詳細</button>
+<button class="btn">查看詳細</button>
 </a>
 
 </div>
 
-<div class="house">
+</div>
 
-<h3>台中西屯區兩房</h3>
 
-<p>價格：798萬</p>
+<div class="house-card">
 
-<p>坪數：25坪</p>
+<img class="house-img"
+src="https://images.unsplash.com/photo-1568605114967-8130f3a36994">
+
+<div class="house-info">
+
+<div class="house-title">
+台中西屯區景觀宅
+</div>
+
+<div class="house-price">
+1280萬
+</div>
+
+<div class="house-detail">
+坪數：42坪
+</div>
+
+<div class="house-detail">
+格局：4房2廳2衛
+</div>
+
+<div class="house-detail">
+城市：台中市
+</div>
 
 <a href="house-detail.html">
-<button>查看詳細</button>
+<button class="btn">查看詳細</button>
 </a>
 
 </div>
 
 </div>
-<script>
 
-function search(){
+</div>
 
-var area=document.getElementById("area").value
-var price=document.getElementById("price").value
-
-alert("搜尋條件: "+area+" "+price)
-
-}
-
-</script>
 </body>
 </html>
