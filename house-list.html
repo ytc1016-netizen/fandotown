@@ -12,7 +12,19 @@
 <body>
 
 <header>
+<div class="container">
 
+<h3>搜尋房屋</h3>
+
+地區
+<input id="area">
+
+價格低於
+<input id="price">
+
+<button onclick="search()">搜尋</button>
+
+</div>
 <h1>房屋列表</h1>
 
 </header>
@@ -48,6 +60,17 @@
 </div>
 
 </div>
+<script>
 
+function search(){
+
+var area=document.getElementById("area").value
+var price=document.getElementById("price").value
+
+alert("搜尋條件: "+area+" "+price)
+
+}
+
+</script>
 </body>
 </html>
