@@ -23,7 +23,36 @@ display:grid;
 grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
 gap:25px;
 }
+.search-bar{
+margin:20px 0;
+display:flex;
+gap:10px;
+}
 
+.house-card{
+display:flex;
+background:white;
+border-radius:10px;
+box-shadow:0 2px 8px rgba(0,0,0,0.1);
+margin-bottom:20px;
+overflow:hidden;
+}
+
+.list-img{
+width:260px;
+height:180px;
+object-fit:cover;
+}
+
+.house-info{
+padding:20px;
+}
+
+.price{
+color:red;
+font-size:22px;
+font-weight:bold;
+}
 .card{
 background:white;
 padding:25px;
