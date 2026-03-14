@@ -1,130 +1,75 @@
-body{
-font-family:Arial, Helvetica, sans-serif;
-margin:0;
-background:#f4f6f8;
-}
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>刊登房屋</title>
+<link rel="stylesheet" href="style.css">
+</head>
 
-header{
-background:#0077cc;
-color:white;
-padding:40px;
-text-align:center;
-}
+<body>
 
-.container{
-width:90%;
-max-width:1100px;
-margin:auto;
-margin-top:40px;
-}
+<h1>刊登房屋</h1>
 
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:25px;
-}
-.search-bar{
-margin:20px 0;
-display:flex;
-gap:10px;
-}
+<div class="form">
 
-.house-card{
-display:flex;
-background:white;
-border-radius:10px;
-box-shadow:0 2px 8px rgba(0,0,0,0.1);
-margin-bottom:20px;
-overflow:hidden;
-}
+<input id="title" placeholder="標題">
 
-.list-img{
-width:260px;
-height:180px;
-object-fit:cover;
-}
+<input id="price" placeholder="價格(萬)">
 
-.house-info{
-padding:20px;
-}
+<input id="area" placeholder="坪數">
 
-.price{
-color:red;
-font-size:22px;
-font-weight:bold;
-}
-.card{
-background:white;
-padding:25px;
-border-radius:10px;
-box-shadow:0 3px 10px rgba(0,0,0,0.1);
-text-align:center;
-}
+<input id="layout" placeholder="格局 例如3房2廳2衛">
 
-button{
-background:#0077cc;
-color:white;
-border:none;
-padding:12px 20px;
-border-radius:6px;
-font-size:16px;
-cursor:pointer;
-}
+<select id="city">
 
-button:hover{
-background:#005fa3;
-}
+<option>台北市</option>
+<option>新北市</option>
+<option>桃園市</option>
+<option>台中市</option>
+<option>台南市</option>
+<option>高雄市</option>
 
-.house{
-background:white;
-padding:20px;
-margin-bottom:20px;
-border-radius:8px;
-box-shadow:0 2px 6px rgba(0,0,0,0.1);
-}
+</select>
 
-input{
-padding:8px;
-width:250px;
-}
-/* 房屋詳細頁圖片 */
-.detail-img{
-width:100%;
-max-width:900px;
-height:auto;
-border-radius:10px;
-display:block;
-margin:auto;
-}
+<input id="image" placeholder="圖片URL">
 
-/* 房屋詳細頁容器 */
-.detail-container{
-width:90%;
-max-width:1000px;
-margin:auto;
-background:white;
-padding:30px;
-border-radius:12px;
-box-shadow:0 2px 8px rgba(0,0,0,0.1);
-}
+<button onclick="postHouse()">刊登房屋</button>
 
-/* 詳細資料 */
-.detail-info{
-text-align:center;
-margin-top:20px;
-font-size:18px;
-line-height:1.8;
-}
+</div>
 
-/* 手機版 */
-@media (max-width:768px){
+<script>
 
-.detail-img{
-max-width:100%;
-}
+function postHouse(){
 
-.detail-container{
-padding:20px;
-}
+let house={
+
+title:document.getElementById("title").value,
+
+price:document.getElementById("price").value,
+
+area:document.getElementById("area").value,
+
+layout:document.getElementById("layout").value,
+
+city:document.getElementById("city").value,
+
+image:document.getElementById("image").value
+
+};
+
+let houses=JSON.parse(localStorage.getItem("houses")) || [];
+
+houses.push(house);
+
+localStorage.setItem("houses",JSON.stringify(houses));
+
+alert("刊登成功");
+
+location.href="house-list.html";
 
 }
+
+</script>
+
+</body>
+</html>
