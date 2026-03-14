@@ -1,83 +1,39 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
-
+<html>
 <head>
-
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>房屋詳細</title>
-
+<title>房屋詳情</title>
 <link rel="stylesheet" href="style.css">
-
-<style>
-
-.container{
-width:90%;
-max-width:1000px;
-margin:auto;
-margin-top:40px;
-}
-
-.house-img{
-width:100%;
-border-radius:10px;
-margin-bottom:20px;
-}
-
-.card{
-background:white;
-padding:30px;
-border-radius:10px;
-box-shadow:0 2px 10px rgba(0,0,0,0.1);
-}
-
-h1{
-margin-bottom:20px;
-}
-
-.detail{
-margin-bottom:10px;
-font-size:18px;
-}
-
-</style>
-
 </head>
 
 <body>
 
-<div class="container">
+<div class="detail" id="detail"></div>
 
-<div class="card">
+<script>
 
-<h1>高雄三民區三房</h1>
+let houses=JSON.parse(localStorage.getItem("houses")) || [];
 
-<img id="houseImg" class="detail-img">
+let params=new URLSearchParams(location.search);
 
-<div class="detail">
-價格：988萬
-</div>
+let id=params.get("id");
 
-<div class="detail">
-坪數：35坪
-</div>
+let h=houses[id];
 
-<div class="detail">
-樓層：10樓
-</div>
+document.getElementById("detail").innerHTML=`
 
-<div class="detail">
-屋齡：10年
-</div>
+<h1>${h.title}</h1>
 
-<div class="detail">
-房型：3房2廳2衛
-</div>
+<img src="${h.image}" class="detail-img">
 
-</div>
+<p>價格：${h.price}萬</p>
+<p>坪數：${h.area}坪</p>
+<p>格局：${h.layout}</p>
+<p>城市：${h.city}</p>
 
-</div>
+`;
+
+</script>
 
 </body>
 </html>
