@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>預售屋3D預示</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<h1 style="text-align:center;">預售屋室內設計預示</h1>
+
+<div style="width:900px;margin:auto;text-align:center;">
+
+<img id="room" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900" style="width:100%;border-radius:10px;">
+
+<br><br>
+
+<select onchange="changeStyle(this.value)">
+
+<option value="empty">空屋</option>
+<option value="modern">現代風</option>
+<option value="nordic">北歐風</option>
+<option value="industrial">工業風</option>
+<option value="japan">日式風</option>
+
+</select>
+
+</div>
+
+<script>
+
+function changeStyle(style){
+
+let img=""
+
+if(style=="empty"){
+img="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900"
+}
+
+if(style=="modern"){
+img="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=900"
+}
+
+if(style=="nordic"){
+img="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=900"
+}
+
+if(style=="industrial"){
+img="https://images.unsplash.com/photo-1560185007-cde436f6a4d0?w=900"
+}
+
+if(style=="japan"){
+img="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=900"
+}
+
+document.getElementById("room").src=img
+
+}
+
+</script>
+
+</body>
+</html>
