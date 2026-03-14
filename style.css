@@ -33,11 +33,6 @@
 
 <input id="image" placeholder="圖片URL">
 
-.house img{
-width:100%;
-max-width:350px;
-height:auto;
-border-radius:8px;
 }
 <button onclick="postHouse()">刊登房屋</button>
 
@@ -62,6 +57,13 @@ city:document.getElementById("city").value,
 image:document.getElementById("image").value
 
 };
+
+.house img{
+width:100%;
+max-width:350px;
+height:auto;
+border-radius:8px;
+}
 
 .detail-img{
 width:100%;
