@@ -1,99 +1,73 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
-
+<html>
 <head>
 <meta charset="UTF-8">
 <title>刊登房屋</title>
-
-<style>
-
-body{
-font-family:Arial;
-width:600px;
-margin:auto;
-margin-top:40px;
-}
-
-input{
-width:100%;
-padding:10px;
-margin:5px 0;
-}
-
-button{
-padding:10px 20px;
-background:#1976b6;
-color:white;
-border:none;
-cursor:pointer;
-}
-
-</style>
-
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
 <h1>刊登房屋</h1>
 
-標題
-<input id="title">
+<div class="form">
 
-價格(萬)
-<input id="price">
+<input id="title" placeholder="標題">
 
-坪數
-<input id="size">
+<input id="price" placeholder="價格(萬)">
 
-格局
-<input id="layout">
+<input id="area" placeholder="坪數">
 
-城市
-<input id="city">
+<input id="layout" placeholder="格局 例如3房2廳2衛">
 
-圖片URL
-<input id="img">
+<select id="city">
 
-<br><br>
+<option>台北市</option>
+<option>新北市</option>
+<option>桃園市</option>
+<option>台中市</option>
+<option>台南市</option>
+<option>高雄市</option>
 
-<button onclick="addHouse()">刊登房屋</button>
+</select>
 
-<script>
+<input id="image" placeholder="圖片URL">
+
+<button onclick="postHouse()">刊登房屋</button>
+
+</div>
+
 <script>
 
 function postHouse(){
 
-const title = document.getElementById("title").value
-const price = document.getElementById("price").value
-const size = document.getElementById("size").value
-const layout = document.getElementById("layout").value
-const city = document.getElementById("city").value
-const img = document.getElementById("img").value
+let house={
 
-let houses = JSON.parse(localStorage.getItem("houses")) || []
+title:document.getElementById("title").value,
 
-const house = {
-id: Date.now(),
-title,
-price,
-size,
-layout,
-city,
-img
+price:document.getElementById("price").value,
+
+area:document.getElementById("area").value,
+
+layout:document.getElementById("layout").value,
+
+city:document.getElementById("city").value,
+
+image:document.getElementById("image").value
+
+};
+
+let houses=JSON.parse(localStorage.getItem("houses")) || [];
+
+houses.push(house);
+
+localStorage.setItem("houses",JSON.stringify(houses));
+
+alert("刊登成功");
+
+location.href="house-list.html";
+
 }
-
-houses.push(house)
-
-localStorage.setItem("houses", JSON.stringify(houses))
-
-alert("刊登成功")
-
-window.location.href="house-list.html"
-
-}
-
-</script>
-
 
 </script>
 
