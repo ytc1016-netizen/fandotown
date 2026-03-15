@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>預售屋線上下訂</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f4f6f8;
+margin:0;
+}
+
+header{
+background:#0077cc;
+color:white;
+text-align:center;
+padding:30px;
+}
+
+.container{
+max-width:700px;
+margin:auto;
+padding:30px;
+}
+
+.card{
+background:white;
+padding:30px;
+border-radius:10px;
+box-shadow:0 3px 10px rgba(0,0,0,0.1);
+}
+
+.info p{
+margin:10px 0;
+}
+
+button{
+padding:15px 25px;
+background:#e53935;
+color:white;
+border:none;
+border-radius:6px;
+font-size:16px;
+cursor:pointer;
+}
+
+button:hover{
+background:#c62828;
+}
+
+.timer{
+font-size:20px;
+color:red;
+margin-top:20px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<h1>預售屋線上下訂</h1>
+
+</header>
+
+<div class="container">
+
+<div class="card">
+
+<h2>A棟 12F-1</h2>
+
+<div class="info">
+
+<p>坪數：35坪</p>
+<p>格局：3房2廳2衛</p>
+<p>價格：1280萬</p>
+<p>車位：B2-15</p>
+
+</div>
+
+<button onclick="orderHouse()">線上下訂</button>
+
+<div class="timer" id="timer"></div>
+
+</div>
+
+</div>
+
+<script>
+
+let time=900
+
+function startTimer(){
+
+let t=setInterval(function(){
+
+let m=Math.floor(time/60)
+let s=time%60
+
+document.getElementById("timer").innerHTML=
+"戶別鎖定時間："+m+"分 "+s+"秒"
+
+time--
+
+if(time<0){
+
+clearInterval(t)
+
+document.getElementById("timer").innerHTML="鎖定已解除"
+
+}
+
+},1000)
+
+}
+
+function orderHouse(){
+
+alert("戶別已鎖定15分鐘，請完成訂金支付")
+
+startTimer()
+
+}
+
+</script>
+
+</body>
+</html>
