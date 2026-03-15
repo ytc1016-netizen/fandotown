@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>9168房都通 地圖找房</title>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+background:#f4f6f8;
+}
+
+header{
+background:#0077cc;
+color:white;
+padding:15px;
+text-align:center;
+}
+
+.search-bar{
+background:white;
+padding:10px;
+display:flex;
+gap:10px;
+justify-content:center;
+box-shadow:0 2px 6px rgba(0,0,0,0.1);
+}
+
+.search-bar select{
+padding:8px;
+}
+
+.container{
+display:flex;
+height:650px;
+}
+
+.list{
+width:35%;
+overflow:auto;
+background:white;
+border-right:1px solid #ddd;
+}
+
+.item{
+padding:15px;
+border-bottom:1px solid #eee;
+cursor:pointer;
+}
+
+.item:hover{
+background:#f2f2f2;
+}
+
+.map{
+flex:1;
+}
+
+#map{
+height:100%;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<h2>9168房都通｜地圖找房</h2>
+
+</header>
+
+<div class="search-bar">
+
+<select id="city">
+<option value="">區域</option>
+<option value="台北">台北市</option>
+<option value="台中">台中市</option>
+<option value="高雄">高雄市</option>
+</select>
+
+<select id="type">
+<option value="">物件種類</option>
+<option value="店面">店面</option>
+<option value="透天">透天</option>
+<option value="別墅">別墅</option>
+<option value="大樓">大樓</option>
+<option value="套房">套房</option>
+<option value="車位">車位</option>
+</select>
+
+<select id="price">
+<option value="">價格</option>
+<option value="1000">1000萬以下</option>
+<option value="2000">2000萬以下</option>
+<option value="5000">5000萬以下</option>
+</select>
+
+<button onclick="search()">搜尋</button>
+
+</div>
+
+<div class="container">
+
+<div class="list" id="houseList"></div>
+
+<div class="map">
+
+<div id="map"></div>
+
+</div>
+
+</div>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<script>
+
+var map=L.map('map').setView([23.7,121],7)
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+maxZoom:19
+}).addTo(map)
+
+
+var houses=[
+
+{
+title:"台北信義捷運大樓",
+city:"台北",
+type:"大樓",
+price:1800,
+lat:25.033,
+lng:121.565
+},
+
+{
+title:"台中西屯透天",
+city:"台中",
+type:"透天",
+price:1200,
+lat:24.17,
+lng:120.64
+},
+
+{
+title:"高雄三民套房",
+city:"高雄",
+type:"套房",
+price:450,
+lat:22.63,
+lng:120.30
+},
+
+{
+title:"台北東區店面",
+city:"台北",
+type:"店面",
+price:4800,
+lat:25.04,
+lng:121.55
+}
+
+]
+
+var markers=[]
+
+function showList(data){
+
+var list=document.getElementById("houseList")
+
+list.innerHTML=""
+
+data.forEach(function(h){
+
+var div=document.createElement("div")
+
+div.className="item"
+
+div.innerHTML=
+"<b>"+h.title+"</b><br>"+h.type+"<br>"+h.price+"萬"
+
+div.onclick=function(){
+
+map.setView([h.lat,h.lng],15)
+
+}
+
+list.appendChild(div)
+
+})
+
+}
+
+
+function showMarkers(data){
+
+markers.forEach(function(m){
+
+map.removeLayer(m)
+
+})
+
+markers=[]
+
+data.forEach(function(h){
+
+var marker=L.marker([h.lat,h.lng]).addTo(map)
+
+marker.bindPopup(
+"<b>"+h.title+"</b><br>"+h.price+"萬"
+)
+
+markers.push(marker)
+
+})
+
+}
+
+
+function search(){
+
+var city=document.getElementById("city").value
+
+var type=document.getElementById("type").value
+
+var price=document.getElementById("price").value
+
+var result=houses.filter(function(h){
+
+return(
+(city==""||h.city==city)&&
+(type==""||h.type==type)&&
+(price==""||h.price<=price)
+)
+
+})
+
+showList(result)
+
+showMarkers(result)
+
+}
+
+showList(houses)
+
+showMarkers(houses)
+
+</script>
+
+</body>
+</html>
