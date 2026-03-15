@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>AI仲介 阿榮</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f4f6f8;
+margin:0;
+}
+
+.container{
+max-width:900px;
+margin:auto;
+padding:30px;
+text-align:center;
+}
+
+.card{
+background:white;
+padding:30px;
+border-radius:10px;
+box-shadow:0 3px 10px rgba(0,0,0,0.1);
+}
+
+img{
+width:200px;
+border-radius:50%;
+}
+
+button{
+padding:12px 20px;
+background:#0077cc;
+color:white;
+border:none;
+border-radius:6px;
+cursor:pointer;
+margin-top:15px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>AI仲介 阿榮</h1>
+
+<div class="card">
+
+<img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e">
+
+<h3>陽光房仲 AI助手</h3>
+
+<p>
+嗨！我是阿榮 😊<br>
+專門幫你找最適合的房子！
+</p>
+
+<input id="question" placeholder="輸入需求，例如：台中三房1000萬內">
+
+<br><br>
+
+<button onclick="reply()">詢問阿榮</button>
+
+<p id="answer"></p>
+
+</div>
+
+</div>
+
+<script>
+
+function reply(){
+
+let q=document.getElementById("question").value
+
+document.getElementById("answer").innerHTML=
+
+"阿榮建議：可以看看台中西屯區或北屯區的三房物件 👍"
+
+}
+
+</script>
+
+</body>
+</html>
