@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>建案戶型展示</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f4f6f8;
+margin:0;
+}
+
+header{
+background:#0077cc;
+color:white;
+text-align:center;
+padding:30px;
+}
+
+.container{
+max-width:1100px;
+margin:auto;
+padding:30px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:20px;
+}
+
+.card{
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 3px 10px rgba(0,0,0,0.1);
+text-align:center;
+}
+
+.card img{
+width:100%;
+border-radius:8px;
+}
+
+button{
+margin-top:10px;
+padding:10px 20px;
+border:none;
+background:#0077cc;
+color:white;
+border-radius:6px;
+cursor:pointer;
+}
+
+button:hover{
+background:#005fa3;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<h1>建案戶型展示</h1>
+<p>選擇戶型查看3D室內預示</p>
+
+</header>
+
+<div class="container">
+
+<div class="grid">
+
+<div class="card">
+
+<h3>A戶型</h3>
+
+<img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=500">
+
+<p>3房2廳2衛｜35坪</p>
+
+<button onclick="view3D()">查看3D預示</button>
+
+</div>
+
+<div class="card">
+
+<h3>B戶型</h3>
+
+<img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=500">
+
+<p>2房2廳1衛｜28坪</p>
+
+<button onclick="view3D()">查看3D預示</button>
+
+</div>
+
+<div class="card">
+
+<h3>C戶型</h3>
+
+<img src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=500">
+
+<p>4房2廳2衛｜45坪</p>
+
+<button onclick="view3D()">查看3D預示</button>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+function view3D(){
+
+window.location.href="presale-3d.html"
+
+}
+
+</script>
+
+</body>
+</html>
