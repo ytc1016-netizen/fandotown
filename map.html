@@ -1,16 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-<meta charset="utf-8">
-
-<title>周邊行情地圖</title>
+<meta charset="UTF-8">
+<title>地圖找房</title>
 
 <style>
 
+body{
+font-family:Arial;
+margin:0;
+}
+
+header{
+background:#0077cc;
+color:white;
+padding:15px;
+text-align:center;
+}
+
 #map{
-height:600px;
 width:100%;
+height:600px;
 }
 
 </style>
@@ -19,7 +29,11 @@ width:100%;
 
 <body>
 
-<h2>建案周邊行情</h2>
+<header>
+
+<h2>9168房都通｜地圖找房</h2>
+
+</header>
 
 <div id="map"></div>
 
@@ -27,44 +41,61 @@ width:100%;
 
 function initMap(){
 
-var center={lat:25.033,lng:121.565}
+let center={lat:25.0330,lng:121.5654}
 
-var map=new google.maps.Map(document.getElementById("map"),{
-zoom:15,
+let map=new google.maps.Map(
+document.getElementById("map"),
+{
+zoom:12,
 center:center
+}
+)
+
+let houses=[
+{
+title:"台北信義捷運宅",
+price:"1680萬",
+lat:25.0330,
+lng:121.5654
+},
+{
+title:"台中西屯三房",
+price:"988萬",
+lat:24.1710,
+lng:120.6460
+},
+{
+title:"高雄三民區電梯",
+price:"798萬",
+lat:22.6390,
+lng:120.3020
+}
+]
+
+houses.forEach(function(h){
+
+let marker=new google.maps.Marker({
+position:{lat:h.lat,lng:h.lng},
+map:map
 })
 
-var project=new google.maps.Marker({
-position:center,
-map:map,
-title:"9168建案"
+let info=new google.maps.InfoWindow({
+content:"<b>"+h.title+"</b><br>"+h.price
 })
 
-var sale=new google.maps.Marker({
-position:{lat:25.035,lng:121.563},
-map:map,
-title:"出售 1280萬 35坪"
-})
+marker.addListener("click",function(){
 
-sale.addListener("click",function(){
-
-window.open("https://www.591.com.tw")
+info.open(map,marker)
 
 })
 
-var sold=new google.maps.Marker({
-position:{lat:25.032,lng:121.567},
-map:map,
-title:"成交 1120萬 32坪"
 })
 
 }
 
 </script>
 
-<script async defer
-src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap">
-</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
 
 </body>
 </html>
