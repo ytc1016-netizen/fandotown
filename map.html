@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="utf-8">
+
+<title>周邊行情地圖</title>
+
+<style>
+
+#map{
+height:600px;
+width:100%;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h2>建案周邊行情</h2>
+
+<div id="map"></div>
+
+<script>
+
+function initMap(){
+
+var center={lat:25.033,lng:121.565}
+
+var map=new google.maps.Map(document.getElementById("map"),{
+zoom:15,
+center:center
+})
+
+var project=new google.maps.Marker({
+position:center,
+map:map,
+title:"9168建案"
+})
+
+var sale=new google.maps.Marker({
+position:{lat:25.035,lng:121.563},
+map:map,
+title:"出售 1280萬 35坪"
+})
+
+sale.addListener("click",function(){
+
+window.open("https://www.591.com.tw")
+
+})
+
+var sold=new google.maps.Marker({
+position:{lat:25.032,lng:121.567},
+map:map,
+title:"成交 1120萬 32坪"
+})
+
+}
+
+</script>
+
+<script async defer
+src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap">
+</script>
+
+</body>
+</html>
