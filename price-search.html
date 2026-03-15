@@ -41,6 +41,44 @@ box-shadow:0 2px 6px rgba(0,0,0,0.1);
 
 <h2>成交紀錄</h2>
 
+ <h2>區域房價走勢</h2>
+
+<canvas id="priceChart" width="600" height="300"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+
+var ctx=document.getElementById("priceChart").getContext("2d")
+
+var chart=new Chart(ctx,{
+
+type:"line",
+
+data:{
+labels:["2020","2021","2022","2023","2024"],
+
+datasets:[{
+
+label:"平均單價(萬/坪)",
+
+data:[28,29,30,31,32],
+
+borderColor:"blue",
+
+fill:false
+
+}]
+
+},
+
+options:{
+responsive:true
+}
+
+})
+
+</script> 
 <div class="card">
 
 <p>成交時間：2024/03</p>
@@ -56,8 +94,6 @@ box-shadow:0 2px 6px rgba(0,0,0,0.1);
 <p>坪數：34坪</p>
 <p>成交價：1090萬</p>
 <p>單價：31萬/坪</p>
-
-</div>
 
 </div>
 
