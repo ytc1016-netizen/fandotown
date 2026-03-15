@@ -14,47 +14,101 @@ font-family:Arial;
 background:#f4f6f8;
 }
 
-header{
-background:#0077cc;
+/* 導航列 */
+
+.navbar{
+background:#1f2937;
 color:white;
-padding:15px;
-text-align:center;
+padding:12px 20px;
+display:flex;
+gap:20px;
+align-items:center;
 }
+
+.navbar a{
+color:white;
+text-decoration:none;
+font-size:15px;
+}
+
+.logo{
+font-weight:bold;
+font-size:18px;
+margin-right:20px;
+}
+
+/* 搜尋列 */
 
 .search-bar{
 background:white;
-padding:10px;
+padding:12px;
 display:flex;
 gap:10px;
 justify-content:center;
-box-shadow:0 2px 6px rgba(0,0,0,0.1);
+border-bottom:1px solid #ddd;
 }
 
-.search-bar select{
-padding:8px;
+.search-bar select,button{
+padding:8px 12px;
+border-radius:5px;
+border:1px solid #ccc;
 }
+
+.search-bar button{
+background:#0077cc;
+color:white;
+border:none;
+cursor:pointer;
+}
+
+/* 主體 */
 
 .container{
 display:flex;
 height:650px;
 }
 
+/* 左側列表 */
+
 .list{
-width:35%;
+width:38%;
 overflow:auto;
 background:white;
 border-right:1px solid #ddd;
 }
 
-.item{
-padding:15px;
+/* 房屋卡片 */
+
+.card{
+display:flex;
+gap:12px;
+padding:12px;
 border-bottom:1px solid #eee;
 cursor:pointer;
 }
 
-.item:hover{
-background:#f2f2f2;
+.card:hover{
+background:#f5f5f5;
 }
+
+.card img{
+width:90px;
+height:70px;
+object-fit:cover;
+border-radius:6px;
+}
+
+.card-title{
+font-weight:bold;
+font-size:15px;
+}
+
+.price{
+color:#d60000;
+font-weight:bold;
+}
+
+/* 地圖 */
 
 .map{
 flex:1;
@@ -69,11 +123,24 @@ height:100%;
 
 <body>
 
-<header>
+<!-- 導航列 -->
 
-<h2>9168房都通｜地圖找房</h2>
+<div class="navbar">
 
-</header>
+<div class="logo">9168房都通</div>
+
+<a href="index.html">首頁</a>
+
+<a href="map-search.html">地圖找房</a>
+
+<a href="house-list.html">房屋列表</a>
+
+<a href="post-house.html">刊登房屋</a>
+
+</div>
+
+
+<!-- 搜尋列 -->
 
 <div class="search-bar">
 
@@ -105,9 +172,15 @@ height:100%;
 
 </div>
 
+
 <div class="container">
 
+<!-- 左側房屋列表 -->
+
 <div class="list" id="houseList"></div>
+
+
+<!-- 地圖 -->
 
 <div class="map">
 
@@ -116,6 +189,7 @@ height:100%;
 </div>
 
 </div>
+
 
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
@@ -136,7 +210,8 @@ city:"台北",
 type:"大樓",
 price:1800,
 lat:25.033,
-lng:121.565
+lng:121.565,
+img:"https://images.unsplash.com/photo-1600585154340-be6161a56a0c"
 },
 
 {
@@ -145,7 +220,8 @@ city:"台中",
 type:"透天",
 price:1200,
 lat:24.17,
-lng:120.64
+lng:120.64,
+img:"https://images.unsplash.com/photo-1568605114967-8130f3a36994"
 },
 
 {
@@ -154,7 +230,8 @@ city:"高雄",
 type:"套房",
 price:450,
 lat:22.63,
-lng:120.30
+lng:120.30,
+img:"https://images.unsplash.com/photo-1507089947368-19c1da9775ae"
 },
 
 {
@@ -163,12 +240,14 @@ city:"台北",
 type:"店面",
 price:4800,
 lat:25.04,
-lng:121.55
+lng:121.55,
+img:"https://images.unsplash.com/photo-1554995207-c18c203602cb"
 }
 
 ]
 
 var markers=[]
+
 
 function showList(data){
 
@@ -180,10 +259,16 @@ data.forEach(function(h){
 
 var div=document.createElement("div")
 
-div.className="item"
+div.className="card"
 
 div.innerHTML=
-"<b>"+h.title+"</b><br>"+h.type+"<br>"+h.price+"萬"
+
+"<img src='"+h.img+"'>"+
+"<div>"+
+"<div class='card-title'>"+h.title+"</div>"+
+"<div>"+h.type+"</div>"+
+"<div class='price'>"+h.price+"萬</div>"+
+"</div>"
 
 div.onclick=function(){
 
