@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>預售屋銷售</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f4f6f8;
+margin:0;
+}
+
+header{
+background:#0077cc;
+color:white;
+text-align:center;
+padding:30px;
+}
+
+.container{
+max-width:1000px;
+margin:auto;
+padding:30px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:10px;
+}
+
+.cell{
+background:white;
+border:1px solid #ddd;
+padding:20px;
+text-align:center;
+cursor:pointer;
+border-radius:6px;
+}
+
+.available{
+background:#e8f8ec;
+}
+
+.sold{
+background:#ddd;
+cursor:not-allowed;
+}
+
+.locked{
+background:#ffe5b4;
+}
+
+.legend{
+margin-top:20px;
+}
+
+.legend span{
+margin-right:20px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<h1>新建案戶別選擇</h1>
+<p>選擇棟別與戶別</p>
+
+</header>
+
+<div class="container">
+
+<h2>A棟</h2>
+
+<div class="grid">
+
+<div class="cell available" onclick="selectHouse('A-1201')">12F-1</div>
+<div class="cell available" onclick="selectHouse('A-1202')">12F-2</div>
+<div class="cell sold">12F-3</div>
+
+<div class="cell available" onclick="selectHouse('A-1101')">11F-1</div>
+<div class="cell locked">11F-2</div>
+<div class="cell available" onclick="selectHouse('A-1103')">11F-3</div>
+
+<div class="cell available" onclick="selectHouse('A-1001')">10F-1</div>
+<div class="cell available" onclick="selectHouse('A-1002')">10F-2</div>
+<div class="cell available" onclick="selectHouse('A-1003')">10F-3</div>
+
+</div>
+
+<div class="legend">
+
+<p>
+<span>🟢 可售</span>
+<span>🟡 鎖定中</span>
+<span>⚫ 已售</span>
+</p>
+
+</div>
+
+</div>
+
+<script>
+
+function selectHouse(id){
+
+alert("您選擇戶別: "+id)
+
+window.location.href="presale-3d.html"
+
+}
+
+</script>
+
+</body>
+</html>
