@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="UTF-8">
 <title>地圖找房</title>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 
 <style>
 
 body{
-font-family:Arial;
 margin:0;
+font-family:Arial;
 }
 
 header{
@@ -19,7 +22,6 @@ text-align:center;
 }
 
 #map{
-width:100%;
 height:600px;
 }
 
@@ -37,65 +39,54 @@ height:600px;
 
 <div id="map"></div>
 
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
 <script>
 
-function initMap(){
+var map = L.map('map').setView([25.0330,121.5654], 12);
 
-let center={lat:25.0330,lng:121.5654}
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+maxZoom:19
+}).addTo(map);
 
-let map=new google.maps.Map(
-document.getElementById("map"),
-{
-zoom:12,
-center:center
-}
-)
 
-let houses=[
+var houses = [
+
 {
 title:"台北信義捷運宅",
 price:"1680萬",
 lat:25.0330,
 lng:121.5654
 },
+
 {
 title:"台中西屯三房",
 price:"988萬",
 lat:24.1710,
 lng:120.6460
 },
+
 {
 title:"高雄三民區電梯",
 price:"798萬",
 lat:22.6390,
 lng:120.3020
 }
-]
+
+];
+
 
 houses.forEach(function(h){
 
-let marker=new google.maps.Marker({
-position:{lat:h.lat,lng:h.lng},
-map:map
-})
+var marker = L.marker([h.lat,h.lng]).addTo(map);
 
-let info=new google.maps.InfoWindow({
-content:"<b>"+h.title+"</b><br>"+h.price
-})
+marker.bindPopup(
+"<b>"+h.title+"</b><br>"+h.price
+);
 
-marker.addListener("click",function(){
-
-info.open(map,marker)
-
-})
-
-})
-
-}
+});
 
 </script>
-
-<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
 
 </body>
 </html>
