@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>建案銷售進度</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f4f6f8;
+margin:0;
+}
+
+header{
+background:#0077cc;
+color:white;
+text-align:center;
+padding:30px;
+}
+
+.container{
+max-width:800px;
+margin:auto;
+padding:30px;
+}
+
+.card{
+background:white;
+padding:25px;
+margin-bottom:20px;
+border-radius:10px;
+box-shadow:0 3px 10px rgba(0,0,0,0.1);
+}
+
+.bar{
+height:25px;
+background:#ddd;
+border-radius:20px;
+overflow:hidden;
+}
+
+.fill{
+height:100%;
+background:#4caf50;
+}
+
+button{
+margin-top:15px;
+padding:10px 20px;
+border:none;
+background:#0077cc;
+color:white;
+border-radius:6px;
+cursor:pointer;
+}
+
+button:hover{
+background:#005fa3;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<h1>建案銷售進度</h1>
+
+</header>
+
+<div class="container">
+
+<div class="card">
+
+<h2>A棟 已售 70%</h2>
+
+<div class="bar">
+<div class="fill" style="width:70%"></div>
+</div>
+
+<button onclick="viewSales()">查看戶別</button>
+
+</div>
+
+<div class="card">
+
+<h2>B棟 已售 40%</h2>
+
+<div class="bar">
+<div class="fill" style="width:40%"></div>
+</div>
+
+<button onclick="viewSales()">查看戶別</button>
+
+</div>
+
+</div>
+
+<script>
+
+function viewSales(){
+
+window.location.href="presale-sales.html"
+
+}
+
+</script>
+
+</body>
+</html>
