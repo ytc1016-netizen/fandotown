@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="UTF-8">
+<title>房價熱度地圖</title>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+}
+
+header{
+background:#0077cc;
+color:white;
+padding:15px;
+text-align:center;
+}
+
+#map{
+height:650px;
+}
+
+.legend{
+position:absolute;
+bottom:20px;
+left:20px;
+background:white;
+padding:10px;
+border-radius:6px;
+box-shadow:0 2px 6px rgba(0,0,0,0.2);
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<h2>9168房都通｜房價熱度地圖</h2>
+
+</header>
+
+<div id="map"></div>
+
+<div class="legend">
+
+<b>房價熱度</b><br>
+
+<span style="color:red">●</span> 高房價<br>
+<span style="color:orange">●</span> 中房價<br>
+<span style="color:green">●</span> 低房價
+
+</div>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<script>
+
+var map = L.map('map').setView([23.7,121],7);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+maxZoom:19
+}).addTo(map);
+
+
+var cities=[
+
+{
+name:"台北市",
+price:"80萬/坪",
+lat:25.03,
+lng:121.56,
+color:"red"
+},
+
+{
+name:"新北市",
+price:"55萬/坪",
+lat:25.01,
+lng:121.46,
+color:"orange"
+},
+
+{
+name:"台中市",
+price:"40萬/坪",
+lat:24.17,
+lng:120.64,
+color:"orange"
+},
+
+{
+name:"台南市",
+price:"32萬/坪",
+lat:22.99,
+lng:120.21,
+color:"green"
+},
+
+{
+name:"高雄市",
+price:"30萬/坪",
+lat:22.63,
+lng:120.30,
+color:"green"
+}
+
+];
+
+
+cities.forEach(function(c){
+
+var circle = L.circle(
+[c.lat,c.lng],
+{
+color:c.color,
+fillColor:c.color,
+fillOpacity:0.4,
+radius:20000
+}
+).addTo(map);
+
+circle.bindPopup(
+
+"<b>"+c.name+"</b><br>"+
+"平均房價："+c.price
+
+);
+
+});
+
+</script>
+
+</body>
+</html>
