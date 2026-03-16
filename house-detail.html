@@ -2,17 +2,41 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>房屋詳情</title>
-<link rel="stylesheet" href="style.css">
+<title>房屋詳細</title>
+
+<style>
+
+body{
+font-family:Arial;
+width:900px;
+margin:auto;
+margin-top:40px;
+}
+
+img{
+width:100%;
+max-height:400px;
+object-fit:cover;
+margin-bottom:10px;
+}
+
+.price{
+color:#e53935;
+font-size:28px;
+font-weight:bold;
+}
+
+</style>
+
 </head>
 
 <body>
 
-<div class="detail" id="detail"></div>
+<div id="house"></div>
 
 <script>
 
-let houses=JSON.parse(localStorage.getItem("houses")) || [];
+let houses = JSON.parse(localStorage.getItem("houses")) || [];
 
 let params=new URLSearchParams(location.search);
 
@@ -20,18 +44,39 @@ let id=params.get("id");
 
 let h=houses[id];
 
-document.getElementById("detail").innerHTML=`
+let html=`
 
 <h1>${h.title}</h1>
 
-<img src="${h.image}" class="detail-img">
+<p class="price">${h.price} 萬</p>
 
-<p>價格：${h.price}萬</p>
-<p>坪數：${h.area}坪</p>
-<p>格局：${h.layout}</p>
+<img src="${h.img || 'https://via.placeholder.com/800x400'}">
+<img src="${h.img2 || ''}">
+<img src="${h.img3 || ''}">
+
+<p>坪數：${h.size} 坪</p>
+
+<p>格局：${h.rooms}房 ${h.living}廳 ${h.bath}衛</p>
+
+<p>樓層：${h.floor}/${h.total_floor}</p>
+
+<p>屋齡：${h.age} 年</p>
+
 <p>城市：${h.city}</p>
 
+<h3>房屋介紹</h3>
+
+<p>${h.desc}</p>
+
+<h3>聯絡資訊</h3>
+
+<p>聯絡人：${h.contact}</p>
+
+<p>電話：${h.phone}</p>
+
 `;
+
+document.getElementById("house").innerHTML=html;
 
 </script>
 
