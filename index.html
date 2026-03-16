@@ -16,7 +16,6 @@ header{
 background:#1976b6;
 color:white;
 padding:15px 30px;
-font-size:22px;
 }
 
 nav{
@@ -61,6 +60,7 @@ background:white;
 border-radius:10px;
 overflow:hidden;
 box-shadow:0 3px 10px rgba(0,0,0,0.1);
+cursor:pointer;
 }
 
 .card img{
@@ -81,11 +81,18 @@ font-weight:bold;
 
 .title{
 margin:5px 0;
+font-weight:bold;
 }
 
 .meta{
 color:#777;
 font-size:14px;
+}
+
+.desc{
+color:#444;
+font-size:14px;
+margin-top:5px;
 }
 
 </style>
@@ -121,43 +128,59 @@ font-size:14px;
 
 </div>
 
-<div class="grid">
+<div class="grid" id="house-list"></div>
 
-<div class="card">
+</div>
 
-<img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c">
+<script>
+
+const houses = JSON.parse(localStorage.getItem("houses")) || []
+
+const container = document.getElementById("house-list")
+
+if(houses.length===0){
+
+container.innerHTML = "<h3>目前沒有刊登案件</h3>"
+
+}
+
+houses.forEach((h,i)=>{
+
+container.innerHTML += `
+
+<div class="card" onclick="openHouse(${i})">
+
+<img src="${h.img || 'https://picsum.photos/400/300'}">
 
 <div class="card-body">
 
-<div class="price">1680萬</div>
+<div class="price">${h.price} 萬</div>
 
-<div class="title">高雄美術館景觀宅</div>
+<div class="title">${h.title}</div>
 
-<div class="meta">45坪｜3房2廳</div>
-
+<div class="meta">
+${h.city} ｜ ${h.size}坪 ｜ ${h.rooms}房
 </div>
 
-</div>
-
-<div class="card">
-
-<img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85">
-
-<div class="card-body">
-
-<div class="price">1280萬</div>
-
-<div class="title">農16精緻住宅</div>
-
-<div class="meta">38坪｜2房2廳</div>
-
+<div class="desc">
+${h.desc || ''}
 </div>
 
 </div>
 
 </div>
 
-</div>
+`
+
+})
+
+function openHouse(i){
+
+window.location.href="house-detail.html?id="+i
+
+}
+
+</script>
 
 </body>
 </html>
