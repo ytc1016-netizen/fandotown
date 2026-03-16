@@ -128,38 +128,39 @@ margin-bottom:20px;
 
 <script>
 
-function changeStyle(style){
+<script>
 
-let img=""
+const urlParams = new URLSearchParams(window.location.search)
+const id = urlParams.get("id")
 
-if(style=="empty"){
-img="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1000"
+const houses = JSON.parse(localStorage.getItem("houses")) || []
+
+const house = houses[id]
+
+if(house){
+
+document.querySelector(".title").innerText = house.title
+
+document.querySelector(".subtitle").innerText =
+house.city + " ｜ " + house.size + "坪 ｜ " + house.price + "萬"
+
+document.getElementById("room").src = house.img
+
 }
 
+function changeStyle(style){
+
+let img = house.img
+
 if(style=="modern"){
-img="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=1000"
+img = house.img2 || house.img
 }
 
 if(style=="nordic"){
-img="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=1000"
+img = house.img3 || house.img
 }
 
-if(style=="industrial"){
-img="https://images.unsplash.com/photo-1560185007-cde436f6a4d0?w=1000"
-}
-
-if(style=="japan"){
-img="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1000"
-}
-
-let room=document.getElementById("room")
-
-room.style.opacity=0
-
-setTimeout(()=>{
-room.src=img
-room.style.opacity=1
-},200)
+document.getElementById("room").src = img
 
 }
 
