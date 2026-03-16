@@ -118,8 +118,6 @@ margin-bottom:20px;
 
 </div>
 
-</div>
-
 <div class="controls">
 
 <button onclick="changeStyle('empty')">空屋</button>
@@ -137,8 +135,6 @@ margin-bottom:20px;
 </div>
 
 </div>
-
-<script>
 
 <script>
 
@@ -182,6 +178,15 @@ const img = document.getElementById("room")
 
 if(img.requestFullscreen){
 img.requestFullscreen()
+
+}
+function fullscreen(){
+
+const img = document.getElementById("room")
+
+if(img.requestFullscreen){
+img.requestFullscreen()
+}
 
 }
 
