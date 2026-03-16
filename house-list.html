@@ -50,7 +50,7 @@ html+=`
 <h2>${h.title}</h2>
 
 <p>價格：${h.price}萬</p>
-<p>坪數：${h.area}坪</p>
+<p>坪數：${h.size}坪</p>
 <p>城市：${h.city}</p>
 
 <a href="house-detail.html?id=${i}" class="btn">查看詳細</a>
@@ -72,8 +72,7 @@ let price=document.getElementById("price").value;
 let result=houses.filter(h=>{
 
 if(city && h.city!=city) return false;
-if(price && h.price>price) return false;
-
+if(price && Number(h.price) > Number(price)) return false;
 return true;
 
 });
