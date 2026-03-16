@@ -201,6 +201,66 @@ card.style.transform =
 `rotateY(${x}deg) rotateX(${-y}deg)`
 
 })
+<script>
+
+const card = document.querySelector(".room-card")
+const room = document.getElementById("room")
+
+let rx = 0
+let ry = 0
+
+// 滑鼠移動 → 3D旋轉
+document.addEventListener("mousemove",(e)=>{
+
+ry = (e.clientX / window.innerWidth -0.5)*20
+rx = -(e.clientY / window.innerHeight -0.5)*20
+
+card.style.transform = `rotateY(${ry}deg) rotateX(${rx}deg)`
+
+})
+
+// 圖片切換
+function changeStyle(style){
+
+let img=""
+
+if(style=="empty"){
+img="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1000"
+}
+
+if(style=="modern"){
+img="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=1000"
+}
+
+if(style=="nordic"){
+img="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=1000"
+}
+
+if(style=="industrial"){
+img="https://images.unsplash.com/photo-1560185007-cde436f6a4d0?w=1000"
+}
+
+if(style=="japan"){
+img="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1000"
+}
+
+room.style.opacity=0
+
+setTimeout(()=>{
+room.src=img
+room.style.opacity=1
+},200)
+
+}
+
+// 全螢幕
+function fullscreen(){
+
+if(room.requestFullscreen){
+room.requestFullscreen()
+}
+
+}
 
 </script>
 
