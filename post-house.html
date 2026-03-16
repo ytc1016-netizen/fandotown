@@ -103,9 +103,17 @@ cursor:pointer;
 
 function postHouse(){
 
-let houses = JSON.parse(localStorage.getItem("houses")) || []
+let houses = []
+
+try{
+houses = JSON.parse(localStorage.getItem("houses")) || []
+}catch(e){
+houses = []
+}
 
 const house = {
+
+id: Date.now(),
 
 title:document.getElementById("title").value,
 price:document.getElementById("price").value,
@@ -138,11 +146,12 @@ localStorage.setItem("houses",JSON.stringify(houses))
 
 alert("刊登成功")
 
-window.location.href="house-index.html"
+setTimeout(()=>{
+window.location.href="house-list.html"
+},200)
 
 }
 
 </script>
-
 </body>
 </html>
