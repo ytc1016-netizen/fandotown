@@ -2,59 +2,90 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>9168房都通</title>
+<title>房都通</title>
 
 <style>
 
 body{
 font-family:Arial;
-background:#f4f6f8;
 margin:0;
+background:#f5f5f5;
 }
 
 header{
-background:#0077cc;
+background:#1976b6;
 color:white;
-padding:30px;
-text-align:center;
+padding:15px 30px;
+font-size:22px;
+}
+
+nav{
+display:flex;
+gap:20px;
+}
+
+nav a{
+color:white;
+text-decoration:none;
 }
 
 .container{
 width:90%;
-max-width:1100px;
+max-width:1200px;
 margin:auto;
-margin-top:40px;
+margin-top:30px;
+}
+
+.search{
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 3px 10px rgba(0,0,0,0.1);
+margin-bottom:30px;
+}
+
+.search input,
+.search select{
+padding:10px;
+margin-right:10px;
 }
 
 .grid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
 gap:20px;
 }
 
 .card{
 background:white;
-padding:25px;
 border-radius:10px;
+overflow:hidden;
 box-shadow:0 3px 10px rgba(0,0,0,0.1);
-text-align:center;
 }
 
-.card h2{
-margin-top:0;
+.card img{
+width:100%;
+height:180px;
+object-fit:cover;
 }
 
-button{
-background:#0077cc;
-color:white;
-border:none;
-padding:10px 18px;
-border-radius:6px;
-cursor:pointer;
+.card-body{
+padding:15px;
 }
 
-button:hover{
-background:#005fa3;
+.price{
+color:#e53935;
+font-size:20px;
+font-weight:bold;
+}
+
+.title{
+margin:5px 0;
+}
+
+.meta{
+color:#777;
+font-size:14px;
 }
 
 </style>
@@ -64,118 +95,65 @@ background:#005fa3;
 <body>
 
 <header>
-
-<h1>9168房都通</h1>
-
-<p>AI智慧不動產平台 fandotown</p>
-
+<nav>
+<a href="index.html">首頁</a>
+<a href="house-list.html">房屋</a>
+<a href="map-search.html">地圖找房</a>
+<a href="post-house.html">刊登房屋</a>
+</nav>
 </header>
 
 <div class="container">
 
+<div class="search">
+
+<input placeholder="關鍵字">
+
+<select>
+<option>全部城市</option>
+<option>台北市</option>
+<option>新北市</option>
+<option>台中市</option>
+<option>高雄市</option>
+</select>
+
+<button>搜尋</button>
+
+</div>
+
 <div class="grid">
 
-<!-- 找房 -->
-
 <div class="card">
 
-<h2>🔍 找房</h2>
+<img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c">
 
-<p>搜尋中古屋、預售屋、租屋</p>
+<div class="card-body">
 
-<a href="house-list.html">
+<div class="price">1680萬</div>
 
-<button>開始找房</button>
+<div class="title">高雄美術館景觀宅</div>
 
-</a>
+<div class="meta">45坪｜3房2廳</div>
 
 </div>
 
-
-<!-- 刊登房屋 -->
+</div>
 
 <div class="card">
 
-<h2>📝 刊登房屋</h2>
+<img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85">
 
-<p>屋主或仲介刊登物件</p>
+<div class="card-body">
 
-<a href="post-house.html">
+<div class="price">1280萬</div>
 
-<button>我要刊登</button>
+<div class="title">農16精緻住宅</div>
 
-</a>
-
-</div>
-
-
-<!-- AI仲介 -->
-
-<div class="card">
-
-<h2>🤖 AI仲介 阿榮</h2>
-
-<p>AI推薦適合您的房屋</p>
-
-<a href="https://line.me/R/ti/p/@951tpzin" target="_blank">
-
-<button>詢問阿榮</button>
-
-</a>
+<div class="meta">38坪｜2房2廳</div>
 
 </div>
 
-
-<!-- 客服 -->
-
-<div class="card">
-
-<h2>👩 客服 小嵐</h2>
-
-<p>平台客服與問題諮詢</p>
-
-<a href="https://line.me/R/ti/p/@258igzxn" target="_blank">
-
-<button>聯絡客服</button>
-
-</a>
-
 </div>
-
-
-<!-- 房市主播 -->
-
-<div class="card">
-
-<h2>🎤 房市主播 小嵐</h2>
-
-<p>每週房市新聞與分析</p>
-
-<a href="https://line.me/R/ti/p/@616sqpkz" target="_blank">
-
-<button>觀看新聞</button>
-
-</a>
-
-</div>
-
-
-<!-- 房貸試算 -->
-
-<div class="card">
-
-<h2>💰 房貸試算</h2>
-
-<p>快速計算房貸</p>
-
-<a href="mortgage-calculator.html">
-
-<button>房貸計算</button>
-
-</a>
-
-</div>
-
 
 </div>
 
