@@ -1,7 +1,4 @@
 <!DOCTYPE html>
-
-location.href="map-search.html";
-
 <html>
 <head>
 <meta charset="UTF-8">
@@ -11,47 +8,24 @@ location.href="map-search.html";
 
 body{
 font-family:Arial;
-background:#f4f6f8;
-margin:0;
-}
-
-.container{
-max-width:900px;
+width:700px;
 margin:auto;
-background:white;
-padding:30px;
-margin-top:30px;
-border-radius:10px;
+margin-top:40px;
 }
 
-h1{
-text-align:center;
-}
-
-label{
-display:block;
-margin-top:12px;
-font-weight:bold;
-}
-
-input,select,textarea{
+input,textarea,select{
 width:100%;
-padding:8px;
-margin-top:5px;
-border-radius:5px;
-border:1px solid #ccc;
+padding:10px;
+margin:10px 0;
 }
 
 button{
-margin-top:20px;
-padding:12px;
-background:#0077cc;
+padding:12px 25px;
+background:#1976b6;
 color:white;
 border:none;
 border-radius:6px;
 cursor:pointer;
-width:100%;
-font-size:16px;
 }
 
 </style>
@@ -60,115 +34,112 @@ font-size:16px;
 
 <body>
 
-<div class="container">
-
 <h1>刊登房屋</h1>
 
-<label>物件標題</label>
+<h3>基本資料</h3>
+
+標題
 <input id="title">
 
-<label>交易類型</label>
-<select id="trade">
-<option>出售</option>
-<option>出租</option>
-<option>預售屋</option>
-</select>
-
-<label>物件種類</label>
-<select id="type">
-
-<option>店面</option>
-<option>透天</option>
-<option>別墅</option>
-<option>大樓</option>
-<option>套房</option>
-<option>車位</option>
-<option>土地</option>
-
-</select>
-
-<label>縣市</label>
-<input id="city">
-
-<label>行政區</label>
-<input id="district">
-
-<label>路/街</label>
-<input id="road">
-
-<label>巷</label>
-<input id="lane">
-
-<label>弄</label>
-<input id="alley">
-
-<label>號</label>
-<input id="number">
-
-<label>樓</label>
-<input id="floor">
-
-<label>總價 (萬)</label>
+價格(萬)
 <input id="price">
 
-<label>總坪數</label>
-<input id="area">
+坪數
+<input id="size">
 
-<label>格局 (例:3房2廳2衛)</label>
-<input id="layout">
+房
+<input id="rooms">
 
-<label>是否有車位</label>
-<select id="parking">
+廳
+<input id="living">
 
-<option>無</option>
-<option>坡道平面</option>
-<option>機械車位</option>
+衛
+<input id="bath">
 
+城市
+<select id="city">
+<option>台北市</option>
+<option>新北市</option>
+<option>桃園市</option>
+<option>台中市</option>
+<option>台南市</option>
+<option>高雄市</option>
 </select>
 
-<label>管理費</label>
-<input id="manage">
+樓層
+<input id="floor">
 
-<label>建築完成日期</label>
-<input id="year" placeholder="例:2015/05/01 或 無">
+總樓層
+<input id="total_floor">
 
-<label>特色說明 (80字)</label>
-<textarea id="feature" maxlength="80"></textarea>
+屋齡
+<input id="age">
 
-<label>照片 (最多12張)</label>
-<input type="file" id="images" multiple>
+介紹
+<textarea id="desc"></textarea>
+
+<h3>照片</h3>
+
+圖片1
+<input id="img1">
+
+圖片2
+<input id="img2">
+
+圖片3
+<input id="img3">
+
+<h3>聯絡資訊</h3>
+
+聯絡人
+<input id="contact">
+
+電話
+<input id="phone">
 
 <button onclick="postHouse()">刊登房屋</button>
-
-</div>
 
 <script>
 
 function postHouse(){
 
-let house={
+let houses = JSON.parse(localStorage.getItem("houses")) || []
+
+const house = {
 
 title:document.getElementById("title").value,
-trade:document.getElementById("trade").value,
-type:document.getElementById("type").value,
-city:document.getElementById("city").value,
-district:document.getElementById("district").value,
-road:document.getElementById("road").value,
 price:document.getElementById("price").value,
-area:document.getElementById("area").value,
-layout:document.getElementById("layout").value
+size:document.getElementById("size").value,
 
-};
+rooms:document.getElementById("rooms").value,
+living:document.getElementById("living").value,
+bath:document.getElementById("bath").value,
 
-let houses=JSON.parse(localStorage.getItem("houses")) || [];
+city:document.getElementById("city").value,
 
-houses.push(house);
+floor:document.getElementById("floor").value,
+total_floor:document.getElementById("total_floor").value,
+age:document.getElementById("age").value,
 
-localStorage.setItem("houses",JSON.stringify(houses));
+desc:document.getElementById("desc").value,
 
-alert("刊登成功");
+img:document.getElementById("img1").value,
+img2:document.getElementById("img2").value,
+img3:document.getElementById("img3").value,
 
-location.href="map-search.html";
+contact:document.getElementById("contact").value,
+phone:document.getElementById("phone").value
+
+}
+
+houses.push(house)
+
+localStorage.setItem("houses",JSON.stringify(houses))
+
+alert("刊登成功")
+
+window.location.href="house-list.html"
+
 }
 
 </script>
