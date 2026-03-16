@@ -2,32 +2,25 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>房屋列表</title>
+<title>房屋清單</title>
 
 <style>
 
 body{
 font-family:Arial;
-background:#f5f5f5;
 margin:0;
+background:#f5f5f5;
 }
 
-header{
+.header{
 background:#1976b6;
 color:white;
 padding:20px;
+font-size:24px;
 text-align:center;
 }
 
-.search{
-background:white;
-padding:20px;
-display:flex;
-gap:10px;
-justify-content:center;
-}
-
-#houseList{
+.container{
 width:1100px;
 margin:auto;
 margin-top:30px;
@@ -36,14 +29,20 @@ grid-template-columns:repeat(3,1fr);
 gap:20px;
 }
 
-.house{
+.card{
 background:white;
-border-radius:8px;
+border-radius:10px;
 overflow:hidden;
-box-shadow:0 2px 10px rgba(0,0,0,0.1);
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
+cursor:pointer;
+transition:.3s;
 }
 
-.house img{
+.card:hover{
+transform:translateY(-5px);
+}
+
+.card img{
 width:100%;
 height:200px;
 object-fit:cover;
@@ -59,14 +58,15 @@ font-size:20px;
 font-weight:bold;
 }
 
-.btn{
-display:inline-block;
-margin-top:10px;
-padding:8px 15px;
-background:#1976b6;
-color:white;
-text-decoration:none;
-border-radius:5px;
+.title{
+font-size:16px;
+margin-top:5px;
+}
+
+.meta{
+color:#666;
+font-size:14px;
+margin-top:5px;
 }
 
 </style>
@@ -75,90 +75,47 @@ border-radius:5px;
 
 <body>
 
-<header>
-<h1>房屋列表</h1>
-</header>
+<div class="header">房屋清單</div>
 
-<div class="search">
-
-<select id="city">
-<option value="">全部城市</option>
-<option>台北市</option>
-<option>新北市</option>
-<option>桃園市</option>
-<option>台中市</option>
-<option>台南市</option>
-<option>高雄市</option>
-</select>
-
-<input id="price" placeholder="價格低於(萬)">
-
-<button onclick="search()">搜尋</button>
-
-</div>
-
-<div id="houseList"></div>
+<div class="container" id="list"></div>
 
 <script>
 
-let houses = JSON.parse(localStorage.getItem("houses")) || [];
+const houses = JSON.parse(localStorage.getItem("houses")) || []
 
-function showHouse(list){
+const list = document.getElementById("list")
 
-let html="";
+if(houses.length===0){
+list.innerHTML="<h2>目前沒有房屋資料</h2>"
+}
 
-list.forEach((h,i)=>{
+houses.forEach((h,i)=>{
 
-html+=`
+list.innerHTML += `
+<div class="card" onclick="openHouse(${i})">
 
-<div class="house">
-
-<img src="${h.img || 'https://via.placeholder.com/400x250'}">
+<img src="${h.img || 'https://picsum.photos/400/300'}">
 
 <div class="info">
 
-<h3>${h.title}</h3>
+<div class="price">${h.price} 萬</div>
 
-<p class="price">${h.price} 萬</p>
+<div class="title">${h.title}</div>
 
-<p>${h.size} 坪</p>
-
-<p>${h.city}</p>
-
-<a href="house-detail.html?id=${i}" class="btn">查看詳細</a>
+<div class="meta">${h.city} ｜ ${h.size} 坪</div>
 
 </div>
 
 </div>
+`
 
-`;
+})
 
-});
+function openHouse(i){
 
-document.getElementById("houseList").innerHTML=html;
-
-}
-
-function search(){
-
-let city=document.getElementById("city").value;
-let price=document.getElementById("price").value;
-
-let result=houses.filter(h=>{
-
-if(city && h.city!=city) return false;
-
-if(price && Number(h.price)>Number(price)) return false;
-
-return true;
-
-});
-
-showHouse(result);
+window.location.href="house-detail.html?id="+i
 
 }
-
-showHouse(houses);
 
 </script>
 
