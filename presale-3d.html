@@ -1,30 +1,128 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="UTF-8">
 <title>預售屋3D預示</title>
-<link rel="stylesheet" href="style.css">
+
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+background:linear-gradient(135deg,#1e3c72,#2a5298);
+color:white;
+}
+
+.container{
+width:1000px;
+margin:auto;
+text-align:center;
+padding-top:40px;
+}
+
+.viewer{
+
+perspective:1200px;
+margin-top:30px;
+
+}
+
+.room-card{
+
+transform-style:preserve-3d;
+transition:transform 0.6s;
+}
+
+.room-card:hover{
+
+transform:rotateY(8deg) rotateX(3deg) scale(1.03);
+
+}
+
+.room-card img{
+
+width:100%;
+border-radius:12px;
+box-shadow:0 20px 40px rgba(0,0,0,0.5);
+
+}
+
+.controls{
+
+margin-top:30px;
+
+}
+
+button{
+
+padding:12px 18px;
+margin:5px;
+border:none;
+border-radius:8px;
+background:white;
+color:#333;
+cursor:pointer;
+font-size:14px;
+transition:all .3s;
+
+}
+
+button:hover{
+
+background:#ffcc00;
+transform:translateY(-2px);
+
+}
+
+.title{
+
+font-size:34px;
+margin-bottom:10px;
+
+}
+
+.subtitle{
+
+opacity:.8;
+margin-bottom:20px;
+
+}
+
+</style>
+
 </head>
 
 <body>
 
-<h1 style="text-align:center;">預售屋室內設計預示</h1>
+<div class="container">
 
-<div style="width:900px;margin:auto;text-align:center;">
+<div class="title">預售屋 3D 室內預示</div>
+<div class="subtitle">切換不同設計風格</div>
 
-<img id="room" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900" style="width:100%;border-radius:10px;">
+<div class="viewer">
 
-<br><br>
+<div class="room-card">
 
-<select onchange="changeStyle(this.value)">
+<img id="room" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1000">
 
-<option value="empty">空屋</option>
-<option value="modern">現代風</option>
-<option value="nordic">北歐風</option>
-<option value="industrial">工業風</option>
-<option value="japan">日式風</option>
+</div>
 
-</select>
+</div>
+
+<div class="controls">
+
+<button onclick="changeStyle('empty')">空屋</button>
+
+<button onclick="changeStyle('modern')">現代風</button>
+
+<button onclick="changeStyle('nordic')">北歐風</button>
+
+<button onclick="changeStyle('industrial')">工業風</button>
+
+<button onclick="changeStyle('japan')">日式風</button>
+
+</div>
 
 </div>
 
@@ -35,26 +133,33 @@ function changeStyle(style){
 let img=""
 
 if(style=="empty"){
-img="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900"
+img="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1000"
 }
 
 if(style=="modern"){
-img="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=900"
+img="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=1000"
 }
 
 if(style=="nordic"){
-img="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=900"
+img="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=1000"
 }
 
 if(style=="industrial"){
-img="https://images.unsplash.com/photo-1560185007-cde436f6a4d0?w=900"
+img="https://images.unsplash.com/photo-1560185007-cde436f6a4d0?w=1000"
 }
 
 if(style=="japan"){
-img="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=900"
+img="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1000"
 }
 
-document.getElementById("room").src=img
+let room=document.getElementById("room")
+
+room.style.opacity=0
+
+setTimeout(()=>{
+room.src=img
+room.style.opacity=1
+},200)
 
 }
 
