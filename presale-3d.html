@@ -137,70 +137,64 @@ margin-bottom:20px;
 </div>
 
 <script>
+<script>
 
-const urlParams = new URLSearchParams(window.location.search)
-const id = urlParams.get("id")
-
-const houses = JSON.parse(localStorage.getItem("houses")) || []
-
-const house = houses[id]
-
-if(house){
-
-document.querySelector(".title").innerText = house.title
-
-document.querySelector(".subtitle").innerText =
-house.city + " ｜ " + house.size + "坪 ｜ " + house.price + "萬"
-
-document.getElementById("room").src = house.img
-
-}
-
-function changeStyle(style){
-
-let img = house.img
-
-if(style=="modern"){
-img = house.img2 || house.img
-}
-
-if(style=="nordic"){
-img = house.img3 || house.img
-}
-
-document.getElementById("room").src = img
-
-}
-
-function fullscreen(){
-
-const img = document.getElementById("room")
-
-if(img.requestFullscreen){
-img.requestFullscreen()
-
-}
-function fullscreen(){
-
-const img = document.getElementById("room")
-
-if(img.requestFullscreen){
-img.requestFullscreen()
-}
-
-}
-  
 const card = document.querySelector(".room-card")
+const room = document.getElementById("room")
+
+let rx = 0
+let ry = 0
 
 document.addEventListener("mousemove",(e)=>{
 
-const x = (e.clientX / window.innerWidth -0.5)*20
-const y = (e.clientY / window.innerHeight -0.5)*20
+ry = (e.clientX / window.innerWidth -0.5)*20
+rx = -(e.clientY / window.innerHeight -0.5)*20
 
-card.style.transform =
-`rotateY(${x}deg) rotateX(${-y}deg)`
+card.style.transform = `rotateY(${ry}deg) rotateX(${rx}deg)`
 
 })
+
+function changeStyle(style){
+
+let img=""
+
+if(style=="empty"){
+img="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1000"
+}
+
+if(style=="modern"){
+img="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=1000"
+}
+
+if(style=="nordic"){
+img="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=1000"
+}
+
+if(style=="industrial"){
+img="https://images.unsplash.com/photo-1560185007-cde436f6a4d0?w=1000"
+}
+
+if(style=="japan"){
+img="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1000"
+}
+
+room.style.opacity=0
+
+setTimeout(()=>{
+room.src=img
+room.style.opacity=1
+},200)
+
+}
+
+function fullscreen(){
+
+if(room.requestFullscreen){
+room.requestFullscreen()
+}
+
+}
+
 <script>
 
 const card = document.querySelector(".room-card")
