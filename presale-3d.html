@@ -122,6 +122,8 @@ margin-bottom:20px;
 
 <button onclick="changeStyle('japan')">日式風</button>
 
+<button onclick="fullscreen()">全螢幕</button>
+  
 </div>
 
 </div>
@@ -161,6 +163,15 @@ img = house.img3 || house.img
 }
 
 document.getElementById("room").src = img
+
+}
+
+function fullscreen(){
+
+const img = document.getElementById("room")
+
+if(img.requestFullscreen){
+img.requestFullscreen()
 
 }
 
