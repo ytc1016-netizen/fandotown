@@ -103,6 +103,8 @@ margin-bottom:20px;
 
 <script>
 
+<script>
+
 const card = document.querySelector(".room-card")
 const room = document.getElementById("room")
 
@@ -141,12 +143,7 @@ if(style=="japan"){
 img="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1000"
 }
 
-room.style.opacity=0
-
-setTimeout(()=>{
-room.src=img
-room.style.opacity=1
-},200)
+room.src = img
 
 }
 
