@@ -233,8 +233,7 @@ function save(){
 
 if(id){
   let list = JSON.parse(localStorage.getItem('cases')) || [];
-  let item = list.find(i => i.id == id);
-
+ let item = list.find(i => i.id === Number(id));
   if(item){
     document.getElementById('title').value = item.title;
     document.getElementById('price').value = item.price;
