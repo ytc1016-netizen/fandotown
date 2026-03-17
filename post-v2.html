@@ -112,18 +112,21 @@ button:disabled {
 
   <h2>詳細資料</h2>
 
+  <!-- ⭐這段要加 -->
   <div class="card">
     <label>土地面積（坪）</label>
-    <input id="landSize" oninput="checkValid()" placeholder="例如：865.8">
+    <input id="landSize" oninput="checkValid()">
   </div>
 
-  <div class="card" id="landFields">
+  <div class="card">
     <label>容積率（%）</label>
-    <input id="far" placeholder="例如：200">
+    <input id="far">
 
     <label>建蔽率（%）</label>
-    <input id="coverage" placeholder="例如：60">
+    <input id="coverage">
   </div>
+
+</div>
 
   <p id="landNotice" style="color:red;"></p>
 
