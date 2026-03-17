@@ -160,7 +160,29 @@ function next(n){
       document.getElementById('far').value;
   }
 }
+function toggleLandFields(){
 
+  let type = document.getElementById('landType').value;
+  let block = document.getElementById('landFields');
+  let notice = document.getElementById('landNotice');
+
+  // 預設清空提示
+  notice.innerText = "";
+
+  if(type === "build"){
+    block.style.display = "block";
+  }
+
+  if(type === "farm"){
+    block.style.display = "none";
+    notice.innerText = "農地通常無容積率，無需填寫";
+  }
+
+  if(type === "hill"){
+    block.style.display = "block";
+    notice.innerText = "⚠ 山坡地開發受限，需個別評估";
+  }
+}
 // 試算
 function calculate(){
   let land = parseFloat(document.getElementById('landSize').value) || 0;
