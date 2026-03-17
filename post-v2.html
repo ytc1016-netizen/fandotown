@@ -110,37 +110,58 @@ h3 {
 
   <!-- STEP 2 -->
   <div class="step" id="step2">
-    <h2>詳細資料</h2>
+  <h2>詳細資料</h2>
 
-    <div class="card">
-      <h3>面積</h3>
-      <div style="display:flex;">
- <label>土地面積（坪）</label> 
- <label>預估銷售單價（萬/坪）</label>
- <input id="sellPrice" placeholder="例如：8">
- <small>每坪價格（萬元）</small>  
- <span style="margin-left:10px;line-height:38px;">坪</span>
-</div>
+  <div class="card">
+    <h3>面積</h3>
+
+    <label>土地面積（坪）</label>
+    <div style="display:flex;">
+      <input id="landSize" placeholder="例如：865.8" style="flex:1;">
+      <span style="margin-left:10px;">坪</span>
     </div>
-
-<div class="card">
-  <h3>土地資訊（🔥你的核心）</h3>
-  <label>建蔽率（%）</label> 
-  <input id="coverage" placeholder="例如：60">
-  <small>60 代表 60%</small>
-<div style="display:flex;">
-  <label>容積率（%）</label>
-  <input id="far" placeholder="例如：200">
-  <small>200 代表 200%，請勿輸入 % 符號</small>
-  <span style="margin-left:10px;">%</span>
-</div>
-      <input id="width" placeholder="面寬">
-      <input id="depth" placeholder="深度">
-    </div>
-
-    <button onclick="next(1)">返回</button>
-    <button onclick="next(3)">下一步</button>
   </div>
+
+  <div class="card">
+    <h3>土地資訊</h3>
+
+    <label>建蔽率（%）</label>
+    <input id="coverage" placeholder="例如：60">
+
+    <label>容積率（%）</label>
+    <div style="display:flex;">
+      <input id="far" placeholder="例如：200" style="flex:1;">
+      <span style="margin-left:10px;">%</span>
+    </div>
+
+    <input id="width" placeholder="面寬">
+    <input id="depth" placeholder="深度">
+  </div>
+
+  <button onclick="next(1)">返回</button>
+  <button onclick="next(3)">下一步</button>
+</div>
+
+<div class="step" id="step3">
+  <h2>投資分析</h2>
+
+  <div class="card">
+    <h3>開發試算</h3>
+
+    <p>土地坪數：<span id="showLand"></span> 坪</p>
+    <p>容積率：<span id="showFar"></span> %</p>
+
+    <label>預估銷售單價（萬/坪）</label>
+    <input id="sellPrice" placeholder="例如：8">
+
+    <button onclick="calculate()">試算</button>
+
+    <p id="result"></p>
+  </div>
+
+  <button onclick="next(2)">返回</button>
+  <button onclick="save()">完成刊登</button>
+</div>
 
   <!-- STEP 3 -->
   <div class="step" id="step3">
