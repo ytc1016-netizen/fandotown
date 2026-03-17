@@ -163,12 +163,22 @@ button:disabled {
 
 // 切頁
 function next(n){
-  document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));
-  document.getElementById('step'+n).classList.add('active');
 
-  document.querySelectorAll('.progress div').forEach(p=>p.classList.remove('active'));
+  // 全部隱藏
+  document.querySelectorAll('.step').forEach(s=>{
+    s.style.display = "none";
+  });
+
+  // 顯示指定step
+  document.getElementById('step'+n).style.display = "block";
+
+  // 進度條（保留你原本）
+  document.querySelectorAll('.progress div').forEach(p=>{
+    p.classList.remove('active');
+  });
   document.getElementById('p'+n).classList.add('active');
 
+  // 帶資料到Step3
   if(n === 3){
     document.getElementById('showLand').innerText =
       document.getElementById('landSize').value;
