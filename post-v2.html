@@ -154,8 +154,6 @@ h3 {
     <button onclick="save()">完成刊登</button>
   </div>
 
-</div>
-
 <script>
 
 function next(n){
@@ -167,8 +165,8 @@ function next(n){
 }
 
 function calculate(){
-  let land = parseFloat(document.getElementById('calcLand').value) || 0;
-  let far = parseFloat(document.getElementById('calcFar').value) || 0;
+  let land = parseFloat(document.getElementById('landSize').value) || 0;
+  let far = parseFloat(document.getElementById('far').value) || 0;
   let price = parseFloat(document.getElementById('sellPrice').value) || 0;
 
   if(land === 0 || far === 0 || price === 0){
@@ -185,7 +183,16 @@ function calculate(){
 }
 
 function save(){
-  ...
+  let data = {
+    title: document.getElementById('title').value,
+    price: document.getElementById('price').value,
+    land: document.getElementById('landSize').value
+  };
+
+  localStorage.setItem('case1', JSON.stringify(data));
+
+  alert("刊登成功！");
+  window.location.href = "list.html";
 }
 
 </script>
