@@ -20,13 +20,8 @@ body {
   box-shadow:0 5px 20px rgba(0,0,0,0.08);
 }
 
-.step {
-  display:none;
-}
-
-.step.active {
-  display:block;
-}
+.step { display:none; }
+.step.active { display:block; }
 
 .progress {
   display:flex;
@@ -62,15 +57,16 @@ button {
   cursor:pointer;
 }
 
+button:disabled {
+  background:#ccc;
+  cursor:not-allowed;
+}
+
 .card {
   background:#fafafa;
   padding:15px;
   border-radius:8px;
   margin-bottom:15px;
-}
-
-h3 {
-  margin-top:0;
 }
 </style>
 </head>
@@ -79,7 +75,7 @@ h3 {
 
 <div class="container">
 
-  <!-- 進度條 -->
+  <!-- 進度 -->
   <div class="progress">
     <div id="p1" class="active">1. 基本資料</div>
     <div id="p2">2. 詳細資料</div>
@@ -88,13 +84,7 @@ h3 {
 
   <!-- STEP 1 -->
   <div class="step active" id="step1">
-    <h2>快速上架</h2>
-
-    <label>物件類型</label>
-    <select id="type">
-      <option>土地</option>
-      <option>住宅</option>
-    </select>
+    <h2>基本資料</h2>
 
     <label>物件標題</label>
     <input id="title" oninput="checkValid()">
@@ -110,92 +100,73 @@ h3 {
 
   <!-- STEP 2 -->
   <div class="step" id="step2">
-  
-  <h2>詳細資料</h2>
+    <h2>詳細資料</h2>
 
-  <div class="card">
-    <h3>面積</h3>
-
-    <label>土地面積（坪）</label>
-    <div style="display:flex;">
-      <input id="landSize" oninput="checkValid()">
-      <span style="margin-left:10px;">坪</span>
-    </div>
-  </div>
-
-  <div class="card">
-    <h3>土地資訊</h3>
-
-    <label>建蔽率（%）</label>
-    <input id="coverage" placeholder="例如：60">
-
-    <label>容積率（%）</label>
-    <div style="display:flex;">
-      <input id="far" placeholder="例如：200" style="flex:1;">
-      <span style="margin-left:10px;">%</span>
+    <div class="card">
+      <label>土地面積（坪）</label>
+      <input id="landSize" oninput="checkValid()" placeholder="例如：865.8">
     </div>
 
-    <input id="width" placeholder="面寬">
-    <input id="depth" placeholder="深度">
+    <div class="card">
+      <label>容積率（%）</label>
+      <input id="far" placeholder="例如：200">
+
+      <label>建蔽率（%）</label>
+      <input id="coverage" placeholder="例如：60">
+    </div>
+
+    <button onclick="next(1)">返回</button>
+    <button onclick="next(3)">下一步</button>
   </div>
 
-  <button onclick="next(1)">返回</button>
-  <button onclick="next(3)">下一步</button>
-  <button id="submitBtn" onclick="save()">完成刊登</button>
-    
-</div>
+  <!-- STEP 3 -->
+  <div class="step" id="step3">
+    <h2>投資分析</h2>
 
-<div class="step" id="step3">
-  <h2>投資分析</h2>
+    <div class="card">
+      <p>土地坪數：<span id="showLand"></span> 坪</p>
+      <p>容積率：<span id="showFar"></span> %</p>
 
-  <div class="card">
-    <h3>開發試算</h3>
+      <label>預估銷售單價（萬/坪）</label>
+      <input id="sellPrice" placeholder="例如：8">
 
-    <p>土地坪數：<span id="showLand"></span> 坪</p>
-    <p>容積率：<span id="showFar"></span> %</p>
-
-    <label>預估銷售單價（萬/坪）</label>
-    <input id="sellPrice" placeholder="例如：8">
-
-    <button onclick="calculate()">試算</button>
-
-    <p id="result"></p>
-  </div>
-
-  <button onclick="next(2)">返回</button>
-  <button onclick="save()">完成刊登</button>
-</div>
-  
-}
-
-    <button onclick="calculate()">試算</button>
+      <button onclick="calculate()">試算</button>
 
       <p id="result"></p>
     </div>
 
     <button onclick="next(2)">返回</button>
-    <button onclick="save()">完成刊登</button>
+    <button id="submitBtn" onclick="save()">完成刊登</button>
   </div>
+
+</div>
 
 <script>
 
+// 切換頁
 function next(n){
   document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));
   document.getElementById('step'+n).classList.add('active');
-if(n === 3){
-  document.getElementById('showLand').innerText = document.getElementById('landSize').value;
-  document.getElementById('showFar').innerText = document.getElementById('far').value;
-}
+
   document.querySelectorAll('.progress div').forEach(p=>p.classList.remove('active'));
   document.getElementById('p'+n).classList.add('active');
+
+  if(n === 3){
+    document.getElementById('showLand').innerText =
+      document.getElementById('landSize').value;
+
+    document.getElementById('showFar').innerText =
+      document.getElementById('far').value;
+  }
 }
 
+// 試算
 function calculate(){
   let land = parseFloat(document.getElementById('landSize').value) || 0;
   let far = parseFloat(document.getElementById('far').value) || 0;
   let price = parseFloat(document.getElementById('sellPrice').value) || 0;
 
-  if(land === 0 || far === 0 || price === 0){
+  if(!land || !far || !price){
     alert("請填寫完整數值");
     return;
   }
@@ -208,31 +179,34 @@ function calculate(){
     "預估銷售額：" + revenue.toFixed(0) + " 萬";
 }
 
-function save(){
-
-  let title = document.getElementById('title');
-  let price = document.getElementById('price');
-  let land = document.getElementById('landSize');
-  let far = document.getElementById('far');
-  
+// 驗證按鈕
 function checkValid(){
   let title = document.getElementById('title');
   let price = document.getElementById('price');
   let land = document.getElementById('landSize');
 
   let ok =
-    title.value &&
-    price.value &&
-    land.value;
+    title.value.trim() !== "" &&
+    price.value.trim() !== "" &&
+    land.value.trim() !== "";
 
   document.getElementById('submitBtn').disabled = !ok;
 }
-  // 清除舊錯誤樣式
-  [title, price, land, far].forEach(i => i.style.border = "1px solid #ccc");
+
+// 儲存
+function save(){
+
+  let title = document.getElementById('title');
+  let price = document.getElementById('price');
+  let land = document.getElementById('landSize');
+  let far = document.getElementById('far');
+
+  [title, price, land, far].forEach(i=>{
+    if(i) i.style.border = "1px solid #ccc";
+  });
 
   let error = false;
 
-  // 🔴 必填檢查
   if(!title.value){
     title.style.border = "2px solid red";
     error = true;
@@ -248,13 +222,11 @@ function checkValid(){
     error = true;
   }
 
-  // 🔴 容積率邏輯（只有建地才檢查）
-  if(far && far.value){
+  if(far.value){
     let v = Number(far.value);
-
     if(v <= 0 || v > 500){
       far.style.border = "2px solid red";
-      alert("容積率需介於 0 ~ 500");
+      alert("容積率需介於 0~500");
       return;
     }
   }
@@ -264,11 +236,8 @@ function checkValid(){
     return;
   }
 
-  // ✅ 正常儲存
-  let id = new URLSearchParams(location.search).get('id');
-
   let data = {
-    id: id ? Number(id) : Date.now(),
+    id: Date.now(),
     title: title.value,
     price: price.value,
     land: land.value,
@@ -276,15 +245,20 @@ function checkValid(){
   };
 
   let list = JSON.parse(localStorage.getItem('cases')) || [];
-
-  if(id){
-    list = list.map(item => item.id == id ? data : item);
-  }else{
-    list.push(data);
-  }
+  list.push(data);
 
   localStorage.setItem('cases', JSON.stringify(list));
 
   alert("刊登成功！");
   window.location.href = "list.html";
 }
+
+// 初始化
+window.onload = function(){
+  checkValid();
+}
+
+</script>
+
+</body>
+</html>
