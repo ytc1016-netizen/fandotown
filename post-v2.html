@@ -221,27 +221,28 @@ function calculate(){
 
 function save(){
 
+  let id = new URLSearchParams(location.search).get('id');
+
   let data = {
+    id: id ? Number(id) : Date.now(), // ⭐唯一ID
     title: document.getElementById('title').value,
     price: document.getElementById('price').value,
     land: document.getElementById('landSize').value,
     time: new Date().toLocaleString()
   };
 
-  // 取出舊資料
   let list = JSON.parse(localStorage.getItem('cases')) || [];
 
-  // 加入新資料
-  list.push(data);
+  if(id){
+    // 編輯模式
+    list = list.map(item => item.id == id ? data : item);
+  }else{
+    // 新增
+    list.push(data);
+  }
 
-  // 存回去
   localStorage.setItem('cases', JSON.stringify(list));
 
-  alert("刊登成功！");
+  alert("已儲存！");
   window.location.href = "list.html";
 }
-
-</script>
-
-</body>
-</html>
