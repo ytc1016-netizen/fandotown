@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<title>刊登物件 V3（土地開發版）</title>
+
+<style>
+body {
+  font-family: Arial;
+  background:#f5f6fa;
+  margin:0;
+  display:flex;
+  justify-content:center;
+}
+
+.container {
+  max-width:900px;
+  width:90%;
+  margin:40px auto;
+  background:#fff;
+  padding:30px;
+  border-radius:12px;
+  box-shadow:0 5px 20px rgba(0,0,0,0.08);
+}
+
+.step { display:none; }
+
+.progress {
+  display:flex;
+  margin-bottom:30px;
+}
+
+.progress div {
+  flex:1;
+  text-align:center;
+  padding:10px;
+  border-bottom:3px solid #ddd;
+}
+
+.progress .active {
+  border-color:#6c5ce7;
+  font-weight:bold;
+}
+
+input, select {
+  width:100%;
+  padding:10px;
+  margin:8px 0 20px;
+  border:1px solid #ccc;
+  border-radius:6px;
+}
+
+button {
+  padding:10px 20px;
+  background:#6c5ce7;
+  color:#fff;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+button:disabled {
+  background:#ccc;
+}
+
+.card {
+  background:#fafafa;
+  padding:15px;
+  border-radius:8px;
+  margin-bottom:15px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- 進度 -->
+<div class="progress">
+  <div id="p1" class="active">1. 基本資料</div>
+  <div id="p2">2. 詳細資料</div>
+  <div id="p3">3. 投資分析</div>
+</div>
+
+<!-- STEP1 -->
+<div class="step" id="step1">
+
+  <h2>基本資料</h2>
+
+  <label>土地類型</label>
+  <select id="landType" onchange="toggleLandFields()">
+    <option value="build">建地</option>
+    <option value="farm">農地</option>
+    <option value="hill">山坡地</option>
+  </select>
+
+  <label>物件標題</label>
+  <input id="title" oninput="checkValid()">
+
+  <label>地區</label>
+  <input id="area">
+
+  <label>總價（萬）</label>
+  <input id="price" oninput="checkValid()">
+
+  <button onclick="next(2)">下一步</button>
+
+</div>
+
+<!-- STEP2 -->
+<div class="step" id="step2">
+
+  <h2>詳細資料</h2>
+
+  <div class="card">
+    <label>土地面積（坪）</label>
+    <input id="landSize" oninput="checkValid()">
+  </div>
+
+  <div class="card" id="landFields">
+
+    <label>容積率（%）</label>
+    <input id="far">
+
+    <label>建蔽率（%）</label>
+    <input id="coverage">
+
+  </div>
+
+  <p id="landNotice" style="color:red;"></p>
+
+  <button onclick="next(1)">返回</button>
+  <button onclick="next(3)">下一步</button>
+
+</div>
+
+<!-- STEP3 -->
+<div class="step" id="step3">
+
+  <h2>投資分析</h2>
+
+  <div class="card">
+    <p>土地坪數：<span id="showLand"></span> 坪</p>
+    <p>容積率：<span id="showFar"></span> %</p>
+
+    <label>預估銷售單價（萬/坪）</label>
+    <input id="sellPrice" placeholder="例如：8">
+
+    <button onclick="calculate()">試算</button>
+
+    <p id="result"></p>
+  </div>
+
+  <button onclick="next(2)">返回</button>
+  <button id="submitBtn" onclick="save()">完成刊登</button>
+
+</div>
+
+</div>
+
+<script>
+
+// 切頁（穩定版）
+function next(n){
+
+  document.querySelectorAll('.step').forEach(s=>{
+    s.style.display = "none";
+  });
+
+  document.getElementById('step'+n).style.display = "block";
+
+  document.querySelectorAll('.progress div').forEach(p=>{
+    p.classList.remove('active');
+  });
+
+  document.getElementById('p'+n).classList.add('active');
+
+  if(n === 3){
+    document.getElementById('showLand').innerText =
+      document.getElementById('landSize').value;
+
+    document.getElementById('showFar').innerText =
+      document.getElementById('far').value;
+  }
+
+  checkValid();
+}
+
+// 土地類型控制
+function toggleLandFields(){
+
+  let type = document.getElementById('landType').value;
+  let block = document.getElementById('landFields');
+  let notice = document.getElementById('landNotice');
+
+  notice.innerText = "";
+
+  if(type === "build"){
+    block.style.display = "block";
+  }
+
+  if(type === "farm"){
+    block.style.display = "none";
+    notice.innerText = "農地無容積率";
+  }
+
+  if(type === "hill"){
+    block.style.display = "block";
+    notice.innerText = "⚠ 山坡地開發限制較多";
+  }
+}
+
+// 試算
+function calculate(){
+
+  let land = parseFloat(document.getElementById('landSize').value);
+  let far = parseFloat(document.getElementById('far').value);
+  let price = parseFloat(document.getElementById('sellPrice').value);
+
+  if(!land || !price){
+    alert("請填寫完整數值");
+    return;
+  }
+
+  if(document.getElementById('landType').value === "farm"){
+    alert("農地無法試算容積");
+    return;
+  }
+
+  if(!far){
+    alert("請填寫容積率");
+    return;
+  }
+
+  let build = land * (far/100);
+  let revenue = build * price;
+
+  document.getElementById('result').innerHTML =
+    "可蓋坪數：" + build.toFixed(1) + " 坪<br>" +
+    "預估銷售額：" + revenue.toFixed(0) + " 萬";
+}
+
+// 驗證
+function checkValid(){
+
+  let ok =
+    document.getElementById('title').value &&
+    document.getElementById('price').value &&
+    document.getElementById('landSize').value;
+
+  document.getElementById('submitBtn').disabled = !ok;
+}
+
+// 儲存 + 跳轉
+function save(){
+
+  let data = {
+    id: Date.now(),
+    title: document.getElementById('title').value,
+    area: document.getElementById('area').value,
+    price: document.getElementById('price').value,
+    land: document.getElementById('landSize').value
+  };
+
+  let list = JSON.parse(localStorage.getItem('cases')) || [];
+  list.push(data);
+
+  localStorage.setItem('cases', JSON.stringify(list));
+
+  alert("刊登成功！");
+  window.location.href = "list.html";
+}
+
+// 初始化
+window.onload = function(){
+  next(1);
+  toggleLandFields();
+}
+
+</script>
+
+</body>
+</html>
