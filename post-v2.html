@@ -197,7 +197,10 @@ h3 {
 function next(n){
   document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));
   document.getElementById('step'+n).classList.add('active');
-
+if(n === 3){
+  document.getElementById('showLand').innerText = document.getElementById('landSize').value;
+  document.getElementById('showFar').innerText = document.getElementById('far').value;
+}
   document.querySelectorAll('.progress div').forEach(p=>p.classList.remove('active'));
   document.getElementById('p'+n).classList.add('active');
 }
