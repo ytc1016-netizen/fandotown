@@ -3,7 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <title>刊登物件 V2（土地開發版）</title>
-
+<label>土地類型</label>
+  
+<select id="landType" onchange="toggleLandFields()">
+  <option value="build">建地</option>
+  <option value="farm">農地</option>
+  <option value="hill">山坡地</option>
+  
 <style>
 body {
   font-family: Arial;
@@ -99,23 +105,18 @@ button:disabled {
   </div>
 
   <!-- STEP 2 -->
-  <div class="step" id="step2">
-    <h2>詳細資料</h2>
+<div class="card" id="landFields">
+  <label>容積率（%）</label>
+  <input id="far" placeholder="例如：200">
 
-    <div class="card">
-      <label>土地面積（坪）</label>
-      <input id="landSize" oninput="checkValid()" placeholder="例如：865.8">
+  <label>建蔽率（%）</label>
+  <input id="coverage" placeholder="例如：60">
+</div>
+
+<p id="landNotice" style="color:red;"></p>
     </div>
 
-    <div class="card">
-      <label>容積率（%）</label>
-      <input id="far" placeholder="例如：200">
-
-      <label>建蔽率（%）</label>
-      <input id="coverage" placeholder="例如：60">
-    </div>
-
-    <button onclick="next(1)">返回</button>
+      <button onclick="next(1)">返回</button>
     <button onclick="next(3)">下一步</button>
   </div>
 
