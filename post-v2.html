@@ -225,7 +225,19 @@ function save(){
   let price = document.getElementById('price');
   let land = document.getElementById('landSize');
   let far = document.getElementById('far');
+  
+function checkValid(){
+  let title = document.getElementById('title');
+  let price = document.getElementById('price');
+  let land = document.getElementById('landSize');
 
+  let ok =
+    title.value &&
+    price.value &&
+    land.value;
+
+  document.getElementById('submitBtn').disabled = !ok;
+}
   // 清除舊錯誤樣式
   [title, price, land, far].forEach(i => i.style.border = "1px solid #ccc");
 
