@@ -231,7 +231,16 @@ function save(){
     time: new Date().toLocaleString()
   };
 
+if(id){
   let list = JSON.parse(localStorage.getItem('cases')) || [];
+  let item = list.find(i => i.id == id);
+
+  if(item){
+    document.getElementById('title').value = item.title;
+    document.getElementById('price').value = item.price;
+    document.getElementById('landSize').value = item.land;
+  }
+}
 
   if(id){
     // 編輯模式
