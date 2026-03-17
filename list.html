@@ -52,24 +52,30 @@ body{
 
 <script>
 
-let list = JSON.parse(localStorage.getItem('cases')) || [];
+function save(){
 
-let html = "";
+  let id = new URLSearchParams(location.search).get('id');
 
-list.forEach(item => {
-  html += `
-    <div class="card">
-      <div class="title">${item.title || "未命名案件"}</div>
-      <div class="price">${item.price || 0} 萬</div>
-      <div class="meta">土地：${item.land || 0} 坪</div>
-      <div class="meta">刊登時間：${item.time}</div>
-    </div>
-  `;
-});
+  let data = {
+    id: id ? Number(id) : Date.now(), // ⭐唯一ID
+    title: document.getElementById('title').value,
+    price: document.getElementById('price').value,
+    land: document.getElementById('landSize').value,
+    time: new Date().toLocaleString()
+  };
 
-document.getElementById('list').innerHTML = html;
+  let list = JSON.parse(localStorage.getItem('cases')) || [];
 
-</script>
+  if(id){
+    // 編輯模式
+    list = list.map(item => item.id == id ? data : item);
+  }else{
+    // 新增
+    list.push(data);
+  }
 
-</body>
-</html>
+  localStorage.setItem('cases', JSON.stringify(list));
+
+  alert("已儲存！");
+  window.location.href = "list.html";
+}
