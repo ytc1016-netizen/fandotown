@@ -224,28 +224,18 @@ function save(){
   let id = new URLSearchParams(location.search).get('id');
 
   let data = {
-    id: id ? Number(id) : Date.now(), // ⭐唯一ID
+    id: id ? Number(id) : Date.now(),
     title: document.getElementById('title').value,
     price: document.getElementById('price').value,
     land: document.getElementById('landSize').value,
     time: new Date().toLocaleString()
   };
 
-if(id){
   let list = JSON.parse(localStorage.getItem('cases')) || [];
- let item = list.find(i => i.id === Number(id));
-  if(item){
-    document.getElementById('title').value = item.title;
-    document.getElementById('price').value = item.price;
-    document.getElementById('landSize').value = item.land;
-  }
-}
 
   if(id){
-    // 編輯模式
     list = list.map(item => item.id == id ? data : item);
   }else{
-    // 新增
     list.push(data);
   }
 
