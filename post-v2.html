@@ -165,24 +165,10 @@ h3 {
   <button onclick="next(2)">返回</button>
   <button onclick="save()">完成刊登</button>
 </div>
-
-     <div class="card">
-      <h3>開發試算</h3>
-
-     <label>土地坪數</label>
-     <input id="landSize">
-
-     <label>容積率</label>
-     <input id="far" type="number" min="0" max="1000" step="1">
-
-     <label>預估銷售單價</label>
-     <input id="sellPrice" placeholder="例如：8">
-
- if(far > 500){
-     alert("容積率數值異常，請確認");
+  
 }
 
-      <button onclick="calculate()">試算</button>
+    <button onclick="calculate()">試算</button>
 
       <p id="result"></p>
     </div>
