@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<title>案件列表</title>
+
+<style>
+body {
+  font-family: Arial;
+  background:#f5f6fa;
+  margin:0;
+}
+
+.container {
+  max-width:1000px;
+  margin:40px auto;
+}
+
+.card {
+  background:#fff;
+  padding:20px;
+  margin-bottom:20px;
+  border-radius:10px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.08);
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.card:hover {
+  transform:translateY(-5px);
+}
+
+.price {
+  color:#e84393;
+  font-size:20px;
+  font-weight:bold;
+}
+
+.tag {
+  display:inline-block;
+  background:#6c5ce7;
+  color:#fff;
+  padding:4px 8px;
+  border-radius:6px;
+  font-size:12px;
+  margin-right:5px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h2>案件列表</h2>
+  <div id="list"></div>
+</div>
+
+<script>
+let data = JSON.parse(localStorage.getItem('case1'));
+
+if(data){
+  document.getElementById('list').innerHTML = `
+    <div class="card" onclick="view()">
+      <div class="tag">🔥 可開發</div>
+      <h3>${data.title}</h3>
+      <p>坪數：${data.land || '-'} 坪</p>
+      <div class="price">${data.price} 萬</div>
+    </div>
+  `;
+}else{
+  document.getElementById('list').innerHTML = "目前沒有資料";
+}
+
+function view(){
+  alert("下一步：做詳細頁");
+}
+</script>
+
+</body>
+</html>
