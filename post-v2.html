@@ -2,23 +2,20 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>刊登物件 V2（土地開發版）</title>
-<label>土地類型</label>
-  
-<select id="landType" onchange="toggleLandFields()">
-  <option value="build">建地</option>
-  <option value="farm">農地</option>
-  <option value="hill">山坡地</option>
-  
+<title>刊登物件 V3（土地判斷版）</title>
+
 <style>
 body {
   font-family: Arial;
   background:#f5f6fa;
   margin:0;
+  display:flex;
+  justify-content:center;
 }
 
 .container {
   max-width:900px;
+  width:90%;
   margin:40px auto;
   background:#fff;
   padding:30px;
@@ -65,7 +62,6 @@ button {
 
 button:disabled {
   background:#ccc;
-  cursor:not-allowed;
 }
 
 .card {
@@ -81,74 +77,88 @@ button:disabled {
 
 <div class="container">
 
-  <!-- 進度 -->
-  <div class="progress">
-    <div id="p1" class="active">1. 基本資料</div>
-    <div id="p2">2. 詳細資料</div>
-    <div id="p3">3. 投資分析</div>
-  </div>
-
-  <!-- STEP 1 -->
-  <div class="step active" id="step1">
-    <h2>基本資料</h2>
-
-    <label>物件標題</label>
-    <input id="title" oninput="checkValid()">
-
-    <label>地區</label>
-    <input id="area">
-
-    <label>總價（萬）</label>
-    <input id="price" oninput="checkValid()">
-
-    <button onclick="next(2)">下一步</button>
-  </div>
-
-  <!-- STEP 2 -->
-<div class="card" id="landFields">
-  <label>容積率（%）</label>
-  <input id="far" placeholder="例如：200">
-
-  <label>建蔽率（%）</label>
-  <input id="coverage" placeholder="例如：60">
+<!-- 進度 -->
+<div class="progress">
+  <div id="p1" class="active">1. 基本資料</div>
+  <div id="p2">2. 詳細資料</div>
+  <div id="p3">3. 投資分析</div>
 </div>
 
-<p id="landNotice" style="color:red;"></p>
-    </div>
+<!-- STEP1 -->
+<div class="step active" id="step1">
+  <h2>基本資料</h2>
 
-      <button onclick="next(1)">返回</button>
-    <button onclick="next(3)">下一步</button>
+  <label>土地類型</label>
+  <select id="landType" onchange="toggleLandFields()">
+    <option value="build">建地</option>
+    <option value="farm">農地</option>
+    <option value="hill">山坡地</option>
+  </select>
+
+  <label>物件標題</label>
+  <input id="title" oninput="checkValid()">
+
+  <label>地區</label>
+  <input id="area">
+
+  <label>總價（萬）</label>
+  <input id="price" oninput="checkValid()">
+
+  <button onclick="next(2)">下一步</button>
+</div>
+
+<!-- STEP2 -->
+<div class="step" id="step2">
+
+  <h2>詳細資料</h2>
+
+  <div class="card">
+    <label>土地面積（坪）</label>
+    <input id="landSize" oninput="checkValid()" placeholder="例如：865.8">
   </div>
 
-  <!-- STEP 3 -->
-  <div class="step" id="step3">
-    <h2>投資分析</h2>
+  <div class="card" id="landFields">
+    <label>容積率（%）</label>
+    <input id="far" placeholder="例如：200">
 
-    <div class="card">
-      <p>土地坪數：<span id="showLand"></span> 坪</p>
-      <p>容積率：<span id="showFar"></span> %</p>
-
-      <label>預估銷售單價（萬/坪）</label>
-      <input id="sellPrice" placeholder="例如：8">
-
-      <button onclick="calculate()">試算</button>
-
-      <p id="result"></p>
-    </div>
-
-    <button onclick="next(2)">返回</button>
-    <button id="submitBtn" onclick="save()">完成刊登</button>
+    <label>建蔽率（%）</label>
+    <input id="coverage" placeholder="例如：60">
   </div>
-window.onload = function(){
-  checkValid();
-  toggleLandFields(); // ⭐這行一定要
-} 
-  
+
+  <p id="landNotice" style="color:red;"></p>
+
+  <button onclick="next(1)">返回</button>
+  <button onclick="next(3)">下一步</button>
+
+</div>
+
+<!-- STEP3 -->
+<div class="step" id="step3">
+
+  <h2>投資分析</h2>
+
+  <div class="card">
+    <p>土地坪數：<span id="showLand"></span> 坪</p>
+    <p>容積率：<span id="showFar"></span> %</p>
+
+    <label>預估銷售單價（萬/坪）</label>
+    <input id="sellPrice" placeholder="例如：8">
+
+    <button onclick="calculate()">試算</button>
+
+    <p id="result"></p>
+  </div>
+
+  <button onclick="next(2)">返回</button>
+  <button id="submitBtn" onclick="save()">完成刊登</button>
+
+</div>
+
 </div>
 
 <script>
 
-// 切換頁
+// 切頁
 function next(n){
   document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));
   document.getElementById('step'+n).classList.add('active');
@@ -163,14 +173,16 @@ function next(n){
     document.getElementById('showFar').innerText =
       document.getElementById('far').value;
   }
-}
-function toggleLandFields(){
 
+  checkValid();
+}
+
+// 土地判斷
+function toggleLandFields(){
   let type = document.getElementById('landType').value;
   let block = document.getElementById('landFields');
   let notice = document.getElementById('landNotice');
 
-  // 預設清空提示
   notice.innerText = "";
 
   if(type === "build"){
@@ -179,19 +191,20 @@ function toggleLandFields(){
 
   if(type === "farm"){
     block.style.display = "none";
-    notice.innerText = "農地通常無容積率，無需填寫";
+    notice.innerText = "農地無容積率";
   }
 
   if(type === "hill"){
     block.style.display = "block";
-    notice.innerText = "⚠ 山坡地開發受限，需個別評估";
+    notice.innerText = "⚠ 山坡地開發限制較多";
   }
 }
+
 // 試算
 function calculate(){
-  let land = parseFloat(document.getElementById('landSize').value) || 0;
-  let far = parseFloat(document.getElementById('far').value) || 0;
-  let price = parseFloat(document.getElementById('sellPrice').value) || 0;
+  let land = parseFloat(document.getElementById('landSize').value);
+  let far = parseFloat(document.getElementById('far').value);
+  let price = parseFloat(document.getElementById('sellPrice').value);
 
   if(!land || !far || !price){
     alert("請填寫完整數值");
@@ -206,76 +219,22 @@ function calculate(){
     "預估銷售額：" + revenue.toFixed(0) + " 萬";
 }
 
-// 驗證按鈕
+// 驗證
 function checkValid(){
   let title = document.getElementById('title');
   let price = document.getElementById('price');
   let land = document.getElementById('landSize');
 
   let ok =
-    title.value.trim() !== "" &&
-    price.value.trim() !== "" &&
-    land.value.trim() !== "";
+    title.value &&
+    price.value &&
+    land.value;
 
   document.getElementById('submitBtn').disabled = !ok;
 }
 
 // 儲存
 function save(){
-
-  let title = document.getElementById('title');
-  let price = document.getElementById('price');
-  let land = document.getElementById('landSize');
-  let far = document.getElementById('far');
-
-  [title, price, land, far].forEach(i=>{
-    if(i) i.style.border = "1px solid #ccc";
-  });
-
-  let error = false;
-
-  if(!title.value){
-    title.style.border = "2px solid red";
-    error = true;
-  }
-
-  if(!price.value){
-    price.style.border = "2px solid red";
-    error = true;
-  }
-
-  if(!land.value){
-    land.style.border = "2px solid red";
-    error = true;
-  }
-
-  if(far.value){
-    let v = Number(far.value);
-    if(v <= 0 || v > 500){
-      far.style.border = "2px solid red";
-      alert("容積率需介於 0~500");
-      return;
-    }
-  }
-
-  if(error){
-    alert("請填寫完整資料");
-    return;
-  }
-
-  let data = {
-    id: Date.now(),
-    title: title.value,
-    price: price.value,
-    land: land.value,
-    time: new Date().toLocaleString()
-  };
-
-  let list = JSON.parse(localStorage.getItem('cases')) || [];
-  list.push(data);
-
-  localStorage.setItem('cases', JSON.stringify(list));
-
   alert("刊登成功！");
   window.location.href = "list.html";
 }
@@ -283,6 +242,7 @@ function save(){
 // 初始化
 window.onload = function(){
   checkValid();
+  toggleLandFields();
 }
 
 </script>
