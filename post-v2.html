@@ -24,7 +24,6 @@ body {
 }
 
 .step { display:none; }
-.step.active { display:block; }
 
 .progress {
   display:flex;
@@ -85,7 +84,8 @@ button:disabled {
 </div>
 
 <!-- STEP1 -->
-<div class="step active" id="step1">
+<div class="step" id="step1">
+
   <h2>基本資料</h2>
 
   <label>土地類型</label>
@@ -105,6 +105,7 @@ button:disabled {
   <input id="price" oninput="checkValid()">
 
   <button onclick="next(2)">下一步</button>
+
 </div>
 
 <!-- STEP2 -->
@@ -112,21 +113,21 @@ button:disabled {
 
   <h2>詳細資料</h2>
 
-  <!-- ⭐這段要加 -->
   <div class="card">
     <label>土地面積（坪）</label>
     <input id="landSize" oninput="checkValid()">
   </div>
 
-  <div class="card">
+  <!-- ⭐補上ID -->
+  <div class="card" id="landFields">
+
     <label>容積率（%）</label>
     <input id="far">
 
     <label>建蔽率（%）</label>
     <input id="coverage">
-  </div>
 
-</div>
+  </div>
 
   <p id="landNotice" style="color:red;"></p>
 
@@ -145,7 +146,7 @@ button:disabled {
     <p>容積率：<span id="showFar"></span> %</p>
 
     <label>預估銷售單價（萬/坪）</label>
-    <input id="sellPrice" placeholder="例如：8">
+    <input id="sellPrice">
 
     <button onclick="calculate()">試算</button>
 
@@ -161,24 +162,21 @@ button:disabled {
 
 <script>
 
-// 切頁
+// ✅ 切頁（穩定版）
 function next(n){
 
-  // 全部隱藏
   document.querySelectorAll('.step').forEach(s=>{
     s.style.display = "none";
   });
 
-  // 顯示指定step
   document.getElementById('step'+n).style.display = "block";
 
-  // 進度條（保留你原本）
   document.querySelectorAll('.progress div').forEach(p=>{
     p.classList.remove('active');
   });
+
   document.getElementById('p'+n).classList.add('active');
 
-  // 帶資料到Step3
   if(n === 3){
     document.getElementById('showLand').innerText =
       document.getElementById('landSize').value;
@@ -192,6 +190,7 @@ function next(n){
 
 // 土地判斷
 function toggleLandFields(){
+
   let type = document.getElementById('landType').value;
   let block = document.getElementById('landFields');
   let notice = document.getElementById('landNotice');
@@ -215,12 +214,24 @@ function toggleLandFields(){
 
 // 試算
 function calculate(){
+
   let land = parseFloat(document.getElementById('landSize').value);
   let far = parseFloat(document.getElementById('far').value);
   let price = parseFloat(document.getElementById('sellPrice').value);
 
-  if(!land || !far || !price){
+  if(!land || !price){
     alert("請填寫完整數值");
+    return;
+  }
+
+  // 農地不用容積
+  if(document.getElementById('landType').value === "farm"){
+    alert("農地無容積率，無法試算");
+    return;
+  }
+
+  if(!far){
+    alert("請填寫容積率");
     return;
   }
 
@@ -234,14 +245,11 @@ function calculate(){
 
 // 驗證
 function checkValid(){
-  let title = document.getElementById('title');
-  let price = document.getElementById('price');
-  let land = document.getElementById('landSize');
 
   let ok =
-    title.value &&
-    price.value &&
-    land.value;
+    document.getElementById('title').value &&
+    document.getElementById('price').value &&
+    document.getElementById('landSize').value;
 
   document.getElementById('submitBtn').disabled = !ok;
 }
@@ -254,7 +262,7 @@ function save(){
 
 // 初始化
 window.onload = function(){
-  checkValid();
+  next(1);
   toggleLandFields();
 }
 
