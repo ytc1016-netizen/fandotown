@@ -159,7 +159,11 @@ h3 {
 <script>
 
 function next(n){
-  ...
+  document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));
+  document.getElementById('step'+n).classList.add('active');
+
+  document.querySelectorAll('.progress div').forEach(p=>p.classList.remove('active'));
+  document.getElementById('p'+n).classList.add('active');
 }
 
 function calculate(){
