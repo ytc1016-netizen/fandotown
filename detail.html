@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<title>案件詳情</title>
+
+<style>
+body{font-family:Arial;background:#f5f6fa;margin:0;}
+.container{max-width:800px;margin:40px auto;}
+.card{background:#fff;padding:25px;border-radius:12px;}
+.title{font-size:22px;font-weight:bold;}
+.price{color:#e17055;font-size:24px;margin:10px 0;}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <div class="card" id="detail"></div>
+</div>
+
+<script>
+
+let id = new URLSearchParams(location.search).get('id');
+let list = JSON.parse(localStorage.getItem('cases')) || [];
+
+let item = list.find(i => i.id == id);
+
+if(item){
+  document.getElementById('detail').innerHTML = `
+    <div class="title">${item.title}</div>
+    <div class="price">${item.price} 萬</div>
+    <p>土地：${item.land} 坪</p>
+    <p>刊登時間：${item.time}</p>
+
+    <button onclick="edit()">編輯</button>
+    <button onclick="del()" style="background:#d63031">刪除</button>
+    <button onclick="back()">返回</button>
+  `;
+}
+
+function edit(){
+  location.href = "post-v2.html?id=" + id;
+}
+
+function del(){
+  if(!confirm("確定刪除？")) return;
+
+  let newList = list.filter(i => i.id != id);
+  localStorage.setItem('cases', JSON.stringify(newList));
+
+  alert("已刪除");
+  location.href = "list.html";
+}
+
+function back(){
+  location.href = "list.html";
+}
+
+</script>
+
+</body>
+</html>
