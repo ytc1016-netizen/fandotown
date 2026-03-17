@@ -221,13 +221,56 @@ function calculate(){
 
 function save(){
 
+  let title = document.getElementById('title');
+  let price = document.getElementById('price');
+  let land = document.getElementById('landSize');
+  let far = document.getElementById('far');
+
+  // 清除舊錯誤樣式
+  [title, price, land, far].forEach(i => i.style.border = "1px solid #ccc");
+
+  let error = false;
+
+  // 🔴 必填檢查
+  if(!title.value){
+    title.style.border = "2px solid red";
+    error = true;
+  }
+
+  if(!price.value){
+    price.style.border = "2px solid red";
+    error = true;
+  }
+
+  if(!land.value){
+    land.style.border = "2px solid red";
+    error = true;
+  }
+
+  // 🔴 容積率邏輯（只有建地才檢查）
+  if(far && far.value){
+    let v = Number(far.value);
+
+    if(v <= 0 || v > 500){
+      far.style.border = "2px solid red";
+      alert("容積率需介於 0 ~ 500");
+      return;
+    }
+  }
+
+  if(error){
+    alert("請填寫完整資料");
+    return;
+  }
+
+  // ✅ 正常儲存
   let id = new URLSearchParams(location.search).get('id');
 
   let data = {
     id: id ? Number(id) : Date.now(),
-    title: document.getElementById('title').value,
-    price: document.getElementById('price').value,
-    land: document.getElementById('landSize').value,
+    title: title.value,
+    price: price.value,
+    land: land.value,
     time: new Date().toLocaleString()
   };
 
@@ -241,6 +284,6 @@ function save(){
 
   localStorage.setItem('cases', JSON.stringify(list));
 
-  alert("已儲存！");
+  alert("刊登成功！");
   window.location.href = "list.html";
 }
