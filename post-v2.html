@@ -97,19 +97,20 @@ h3 {
     </select>
 
     <label>物件標題</label>
-    <input id="title">
+    <input id="title" oninput="checkValid()">
 
     <label>地區</label>
     <input id="area">
 
     <label>總價（萬）</label>
-    <input id="price">
+    <input id="price" oninput="checkValid()">
 
     <button onclick="next(2)">下一步</button>
   </div>
 
   <!-- STEP 2 -->
   <div class="step" id="step2">
+  
   <h2>詳細資料</h2>
 
   <div class="card">
@@ -117,7 +118,7 @@ h3 {
 
     <label>土地面積（坪）</label>
     <div style="display:flex;">
-      <input id="landSize" placeholder="例如：865.8" style="flex:1;">
+      <input id="landSize" oninput="checkValid()">
       <span style="margin-left:10px;">坪</span>
     </div>
   </div>
@@ -140,6 +141,8 @@ h3 {
 
   <button onclick="next(1)">返回</button>
   <button onclick="next(3)">下一步</button>
+  <button id="submitBtn" onclick="save()">完成刊登</button>
+    
 </div>
 
 <div class="step" id="step3">
