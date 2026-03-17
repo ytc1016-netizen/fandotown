@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<title>刊登物件 V2（土地開發版）</title>
+
+<style>
+body {
+  font-family: Arial;
+  background:#f5f6fa;
+  margin:0;
+}
+
+.container {
+  max-width:900px;
+  margin:40px auto;
+  background:#fff;
+  padding:30px;
+  border-radius:12px;
+  box-shadow:0 5px 20px rgba(0,0,0,0.08);
+}
+
+.step {
+  display:none;
+}
+
+.step.active {
+  display:block;
+}
+
+.progress {
+  display:flex;
+  margin-bottom:30px;
+}
+
+.progress div {
+  flex:1;
+  text-align:center;
+  padding:10px;
+  border-bottom:3px solid #ddd;
+}
+
+.progress .active {
+  border-color:#6c5ce7;
+  font-weight:bold;
+}
+
+input, select {
+  width:100%;
+  padding:10px;
+  margin:8px 0 20px;
+  border:1px solid #ccc;
+  border-radius:6px;
+}
+
+button {
+  padding:10px 20px;
+  background:#6c5ce7;
+  color:#fff;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+.card {
+  background:#fafafa;
+  padding:15px;
+  border-radius:8px;
+  margin-bottom:15px;
+}
+
+h3 {
+  margin-top:0;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <!-- 進度條 -->
+  <div class="progress">
+    <div id="p1" class="active">1. 基本資料</div>
+    <div id="p2">2. 詳細資料</div>
+    <div id="p3">3. 投資分析</div>
+  </div>
+
+  <!-- STEP 1 -->
+  <div class="step active" id="step1">
+    <h2>快速上架</h2>
+
+    <label>物件類型</label>
+    <select id="type">
+      <option>土地</option>
+      <option>住宅</option>
+    </select>
+
+    <label>物件標題</label>
+    <input id="title">
+
+    <label>地區</label>
+    <input id="area">
+
+    <label>總價（萬）</label>
+    <input id="price">
+
+    <button onclick="next(2)">下一步</button>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="step" id="step2">
+    <h2>詳細資料</h2>
+
+    <div class="card">
+      <h3>面積</h3>
+      <input id="landSize" placeholder="土地坪數">
+    </div>
+
+    <div class="card">
+      <h3>土地資訊（🔥你的核心）</h3>
+      <input id="coverage" placeholder="建蔽率 %">
+      <input id="far" placeholder="容積率 %">
+      <input id="width" placeholder="面寬">
+      <input id="depth" placeholder="深度">
+    </div>
+
+    <button onclick="next(1)">返回</button>
+    <button onclick="next(3)">下一步</button>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="step" id="step3">
+    <h2>投資分析（🔥差異化）</h2>
+
+    <div class="card">
+      <h3>開發試算</h3>
+
+      <label>土地坪數</label>
+      <input id="calcLand">
+
+      <label>容積率 %</label>
+      <input id="calcFar">
+
+      <label>預估銷售單價（萬/坪）</label>
+      <input id="sellPrice">
+
+      <button onclick="calculate()">試算</button>
+
+      <p id="result"></p>
+    </div>
+
+    <button onclick="next(2)">返回</button>
+    <button onclick="save()">完成刊登</button>
+  </div>
+
+</div>
+
+<script>
+function next(n){
+  document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));
+  document.getElementById('step'+n).classList.add('active');
+
+  document.querySelectorAll('.progress div').forEach(p=>p.classList.remove('active'));
+  document.getElementById('p'+n).classList.add('active');
+}
+
+function calculate(){
+  let land = document.getElementById('calcLand').value;
+  let far = document.getElementById('calcFar').value;
+  let price = document.getElementById('sellPrice').value;
+
+  let build = land * (far/100);
+  let revenue = build * price;
+
+  document.getElementById('result').innerHTML =
+    "可蓋坪數：" + build.toFixed(1) + " 坪<br>" +
+    "預估銷售額：" + revenue.toFixed(0) + " 萬";
+}
+
+function save(){
+  let data = {
+    title: document.getElementById('title').value,
+    price: document.getElementById('price').value,
+    land: document.getElementById('landSize').value
+  };
+
+  localStorage.setItem('case1', JSON.stringify(data));
+  alert("已完成刊登（暫存）");
+}
+</script>
+
+</body>
+</html>
