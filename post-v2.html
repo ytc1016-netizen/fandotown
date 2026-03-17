@@ -157,18 +157,20 @@ h3 {
 </div>
 
 <script>
-function next(n){
-  document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));
-  document.getElementById('step'+n).classList.add('active');
 
-  document.querySelectorAll('.progress div').forEach(p=>p.classList.remove('active'));
-  document.getElementById('p'+n).classList.add('active');
+function next(n){
+  ...
 }
 
 function calculate(){
-  let land = document.getElementById('calcLand').value;
-  let far = document.getElementById('calcFar').value;
-  let price = document.getElementById('sellPrice').value;
+  let land = parseFloat(document.getElementById('calcLand').value) || 0;
+  let far = parseFloat(document.getElementById('calcFar').value) || 0;
+  let price = parseFloat(document.getElementById('sellPrice').value) || 0;
+
+  if(land === 0 || far === 0 || price === 0){
+    alert("請填寫完整數值");
+    return;
+  }
 
   let build = land * (far/100);
   let revenue = build * price;
@@ -179,15 +181,9 @@ function calculate(){
 }
 
 function save(){
-  let data = {
-    title: document.getElementById('title').value,
-    price: document.getElementById('price').value,
-    land: document.getElementById('landSize').value
-  };
-
-  localStorage.setItem('case1', JSON.stringify(data));
-  alert("已完成刊登（暫存）");
+  ...
 }
+
 </script>
 
 </body>
