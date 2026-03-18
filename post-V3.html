@@ -182,6 +182,30 @@ function next(n){
 
   document.getElementById('p'+n).classList.add('active');
 
+  document.getElementById('images').addEventListener('change', function(e){
+
+  let preview = document.getElementById('preview');
+  preview.innerHTML = "";
+
+  let files = e.target.files;
+
+  for(let file of files){
+
+    let reader = new FileReader();
+
+    reader.onload = function(ev){
+      let img = document.createElement("img");
+      img.src = ev.target.result;
+      img.style.width = "100px";
+      img.style.borderRadius = "8px";
+
+      preview.appendChild(img);
+    }
+
+    reader.readAsDataURL(file);
+  }
+
+});
   if(n === 3){
     document.getElementById('showLand').innerText =
       document.getElementById('landSize').value;
