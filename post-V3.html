@@ -285,30 +285,48 @@ function checkValid(){
 // 儲存 + 跳轉
 function save(){
 
-  let data = {
-    id: Date.now(),
-    title: document.getElementById('title').value,
-    area: document.getElementById('area').value,
-    price: document.getElementById('price').value,
-    land: document.getElementById('landSize').value
-  };
+  let files = document.getElementById('images').files;
 
-  let list = JSON.parse(localStorage.getItem('cases')) || [];
-  list.push(data);
+  if(files.length === 0){
+    alert("請至少上傳一張照片");
+    return;
+  }
 
-  localStorage.setItem('cases', JSON.stringify(list));
+  let images = [];
 
-  alert("刊登成功！");
-  window.location.href = "list.html";
+  let readerCount = 0;
+
+  for(let file of files){
+
+    let reader = new FileReader();
+
+    reader.onload = function(e){
+
+      images.push(e.target.result);
+      readerCount++;
+
+      // ⭐ 等全部圖片讀完才存
+      if(readerCount === files.length){
+
+        let data = {
+          id: Date.now(),
+          title: document.getElementById('title').value,
+          price: document.getElementById('price').value,
+          land: document.getElementById('landSize').value,
+          images: images // ⭐這行是關鍵
+        };
+
+        let list = JSON.parse(localStorage.getItem('cases')) || [];
+        list.push(data);
+
+        localStorage.setItem('cases', JSON.stringify(list));
+
+        alert("刊登成功！");
+        window.location.href = "list.html";
+      }
+
+    };
+
+    reader.readAsDataURL(file);
+  }
 }
-
-// 初始化
-window.onload = function(){
-  next(1);
-  toggleLandFields();
-}
-
-</script>
-
-</body>
-</html>
