@@ -40,15 +40,23 @@ let list = JSON.parse(localStorage.getItem('cases')) || [];
 let html = "";
 
 list.forEach(item=>{
+
+  let cover = "";
+
+  if(item.images && item.images.length){
+    cover = `<img src="${item.images[0]}" 
+              style="width:100%;height:180px;object-fit:cover;border-radius:8px">`;
+  }
+
   html += `
     <div class="card">
+      ${cover}
       <h3>${item.title}</h3>
       <p>價格：${item.price} 萬</p>
       <p>土地：${item.land} 坪</p>
     </div>
   `;
 });
-
 document.getElementById('list').innerHTML = html;
 
 </script>
