@@ -116,6 +116,12 @@ button:disabled {
   <div class="card">
     <label>土地面積（坪）</label>
     <input id="landSize" oninput="checkValid()">
+  <div class="card">
+  <label>物件照片</label>
+  <input type="file" id="images" multiple accept="image/*">
+
+  <div id="preview" style="display:flex;gap:10px;flex-wrap:wrap;"></div>
+</div>
   </div>
 
   <div class="card" id="landFields">
